@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[原始碼の歷史本文]]></title>
-  <link href="http://shunyi.github.com/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Java | 原始碼の歷史本文]]></title>
+  <link href="http://shunyi.github.com/blog/categories/java/atom.xml" rel="self"/>
   <link href="http://shunyi.github.com/"/>
   <updated>2013-04-06T21:58:51+08:00</updated>
   <id>http://shunyi.github.com/</id>
@@ -18,13 +18,11 @@
     <link href="http://shunyi.github.com/blog/2013/04/06/creates-necessary-but-nonexistent-parent-directories/"/>
     <updated>2013-04-06T21:28:00+08:00</updated>
     <id>http://shunyi.github.com/blog/2013/04/06/creates-necessary-but-nonexistent-parent-directories</id>
-    <content type="html"><![CDATA[<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'>File file = new File(path, filename);
-</span><span class='line'>file.getParantFile().mkdirs();</span></code></pre></td></tr></table></div></figure>
-
-
-<p>若路徑中的目錄不存在則自動建立<br/>
+    <content type="html"><![CDATA[<p><code>
+File file = new File(path, filename);
+file.getParantFile().mkdirs();
+</code>
+若路徑中的目錄不存在則自動建立<br/>
 路徑中請勿包含檔名, 不然會被建成目錄</p>
 ]]></content>
   </entry>

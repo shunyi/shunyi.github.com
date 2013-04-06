@@ -1,15 +1,21 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
     <url>
+        <loc>
+            http://shunyi.github.com/blog/2013/04/06/creates-necessary-but-nonexistent-parent-directories/
+        </loc>
+        <lastmod>2013-04-06T21:55:31+08:00</lastmod>
+    </url>
+    <url>
         <loc>http://shunyi.github.com/robots.txt</loc>
         <lastmod>2013-02-28T21:34:05+08:00</lastmod>
     </url>
     <url>
         <loc>http://shunyi.github.com/blog/archives/</loc>
-        <lastmod>2013-02-28T21:34:05+08:00</lastmod>
+        <lastmod>2013-04-06T21:55:31+08:00</lastmod>
     </url>
     <url>
         <loc>http://shunyi.github.com/</loc>
-        <lastmod>2013-02-28T21:34:05+08:00</lastmod>
+        <lastmod>2013-04-06T21:55:31+08:00</lastmod>
     </url>
 </urlset>
