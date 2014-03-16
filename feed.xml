@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JBake</title>
+    <link>http://shunyi.github.com</link>
+    <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
+    <description>JBake Bootstrap Template</description>
+    <language>en-gb</language>
+    <pubDate>星期日, 16 三月 2014 12:00:34 +0800</pubDate>
+    <lastBuildDate>星期日, 16 三月 2014 12:00:34 +0800</lastBuildDate>
+
+    <item>
+      <title>Web Service</title>
+      <link>http://shunyi.github.com/blog/2014/web-service-post.html</link>
+      <pubDate>星期日, 23 二月 2014 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">/blog/2014/web-service-post.html</guid>
+      	<description>
+	&lt;ol&gt;
+  &lt;li&gt;&lt;p&gt;先建立要透過 Web Service 呼叫的 method&lt;/p&gt;
+  &lt;!--prettify--&gt;
+  &lt;pre&gt;&lt;code&gt;package tw.shunyi.ws.server;
+
+import javax.jws.WebService;
+
+@WebService
+public class CircleFunctions {
+
+    public double getArea(double r) {
+        return java.lang.Math.PI * (r * r);
+    }
+
+    public double getCircumference(double r) {
+        return 2 * java.lang.Math.PI * r;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;建立 server 端程式&lt;/p&gt;
+  &lt;!--prettify--&gt;
+  &lt;pre&gt;&lt;code&gt;package tw.shunyi.ws.server;
+
+import javax.xml.ws.Endpoint;
+
+public class Server {
+
+    public static void main(String[] args) {
+
+        Endpoint.publish(
+                &amp;quot;http://localhost:8080/SimpleWebService/circlefunctions&amp;quot;,
+                new CircleFunctions());
+
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;啟動 web server&lt;/p&gt;&lt;p&gt;3.1. 程式會動態產生 wrapper class&lt;/p&gt;
+  &lt;!--prettify--&gt;
+  &lt;pre&gt;&lt;code&gt;2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getRequestWrapperClass
+資訊: Dynamically creating request wrapper Class tw.shunyi.ws.server.jaxws.GetArea
+2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getResponseWrapperClass
+資訊: Dynamically creating response wrapper bean Class tw.shunyi.ws.server.jaxws.GetAreaResponse
+2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getRequestWrapperClass
+資訊: Dynamically creating request wrapper Class tw.shunyi.ws.server.jaxws.GetCircumference
+2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getResponseWrapperClass
+資訊: Dynamically creating response wrapper bean Class tw.shunyi.ws.server.jaxws.GetCircumferenceResponse
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.2. 可以執行以下指令來產生 wrapper class, 避免每次重啟 server 都要動態產生&lt;/p&gt;
+  &lt;!--prettify--&gt;
+  &lt;pre&gt;&lt;code&gt;wsgen -verbose -cp . tw.shunyi.ws.server.CircleFunctions
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;執行以下指令產生給 client site 用的檔案&lt;/p&gt;
+  &lt;!--prettify--&gt;
+  &lt;pre&gt;&lt;code&gt;wsimport -p tw.shunyi.ws.client -s src -d bin -verbose http://localhost:8080/SimpleWebService/circlefunctions?WSDL
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;建立 client 端程式&lt;/p&gt;
+  &lt;!--prettify--&gt;
+  &lt;pre&gt;&lt;code&gt;package tw.shunyi.ws.client;
+
+public class Client {
+    private static CircleFunctionsService service;
+
+    public static void main(String[] args) {
+        service = new CircleFunctionsService();
+        CircleFunctions port = service.getCircleFunctionsPort();
+        System.out.println(port.getArea(1.0));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;p&gt;執行結果&lt;/p&gt;
+  &lt;pre&gt;&lt;code&gt;3.141592653589793
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+	</description>
+    </item>
+
+  </channel> 
+</rss>
