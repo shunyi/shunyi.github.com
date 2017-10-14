@@ -6,9 +6,34 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期日, 16 三月 2014 12:00:34 +0800</pubDate>
-    <lastBuildDate>星期日, 16 三月 2014 12:00:34 +0800</lastBuildDate>
+    <pubDate>星期六, 14 十月 2017 16:53:27 +0800</pubDate>
+    <lastBuildDate>星期六, 14 十月 2017 16:53:27 +0800</lastBuildDate>
 
+    <item>
+      <title>JBake v2.5.1 安裝</title>
+      <link>http://shunyi.github.com/blog/2017/jbake-2.5.1.html</link>
+      <pubDate>星期六, 14 十月 2017 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">/blog/2017/jbake-2.5.1.html</guid>
+      	<description>
+	&lt;ol&gt;
+  &lt;li&gt;下載 JBake, 並解壓縮&lt;br/&gt;&lt;code&gt;
+unzip jbake-2.5.1-bin.zip 
+&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;建立 project 目錄，並初始化&lt;br/&gt;&lt;code&gt;
+mkdir project
+cd project/
+../bin/jbake -i
+&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;產生 output 目錄&lt;br/&gt;&lt;code&gt;
+../bin/jbake -b 
+&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;執行預覽 (若 &lt;strong&gt;content 目錄&lt;/strong&gt; 的資料有改動會自動 update)&lt;br/&gt;&lt;code&gt;
+../bin/jbake -s
+&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;若 blog 已從 &lt;strong&gt;content 目錄&lt;/strong&gt; 刪除，已存在於 &lt;strong&gt;output 目錄&lt;/strong&gt; 的資料還是會被保留&lt;/li&gt;
+&lt;/ol&gt;
+	</description>
+    </item>
     <item>
       <title>Web Service</title>
       <link>http://shunyi.github.com/blog/2014/web-service-post.html</link>

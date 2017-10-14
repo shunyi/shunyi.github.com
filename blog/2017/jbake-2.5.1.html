@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8"/>
-    <title>JBake</title>
+    <title>JBake v2.5.1 安裝</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -49,13 +49,14 @@
           </div>
         </div>
       </div>
-      <div class="container">
+      <div class="container">	
 	<div class="page-header">
-		<h1>Blog</h1>
+		<h1>JBake v2.5.1 安裝</h1>
 	</div>
-  			<a href="/blog/2017/jbake-2.5.1.html"><h1>JBake v2.5.1 安裝</h1></a>
-  			<p>14 十月 2017</p>
-  			<p><ol>
+
+	<p><em>2017/10/14</em></p>
+
+	<p><ol>
   <li>下載 JBake, 並解壓縮<br/><code>
 unzip jbake-2.5.1-bin.zip 
 </code></li>
@@ -72,85 +73,9 @@ cd project/
 </code></li>
   <li>若 blog 已從 <strong>content 目錄</strong> 刪除，已存在於 <strong>output 目錄</strong> 的資料還是會被保留</li>
 </ol></p>
-  			<a href="/blog/2014/web-service-post.html"><h1>Web Service</h1></a>
-  			<p>23 二月 2014</p>
-  			<p><ol>
-  <li><p>先建立要透過 Web Service 呼叫的 method</p>
-  <!--prettify-->
-  <pre><code>package tw.shunyi.ws.server;
 
-import javax.jws.WebService;
-
-@WebService
-public class CircleFunctions {
-
-    public double getArea(double r) {
-        return java.lang.Math.PI * (r * r);
-    }
-
-    public double getCircumference(double r) {
-        return 2 * java.lang.Math.PI * r;
-    }
-}
-</code></pre></li>
-  <li><p>建立 server 端程式</p>
-  <!--prettify-->
-  <pre><code>package tw.shunyi.ws.server;
-
-import javax.xml.ws.Endpoint;
-
-public class Server {
-
-    public static void main(String[] args) {
-
-        Endpoint.publish(
-                &quot;http://localhost:8080/SimpleWebService/circlefunctions&quot;,
-                new CircleFunctions());
-
-    }
-}
-</code></pre></li>
-  <li><p>啟動 web server</p><p>3.1. 程式會動態產生 wrapper class</p>
-  <!--prettify-->
-  <pre><code>2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getRequestWrapperClass
-資訊: Dynamically creating request wrapper Class tw.shunyi.ws.server.jaxws.GetArea
-2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getResponseWrapperClass
-資訊: Dynamically creating response wrapper bean Class tw.shunyi.ws.server.jaxws.GetAreaResponse
-2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getRequestWrapperClass
-資訊: Dynamically creating request wrapper Class tw.shunyi.ws.server.jaxws.GetCircumference
-2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getResponseWrapperClass
-資訊: Dynamically creating response wrapper bean Class tw.shunyi.ws.server.jaxws.GetCircumferenceResponse
-</code></pre><p>3.2. 可以執行以下指令來產生 wrapper class, 避免每次重啟 server 都要動態產生</p>
-  <!--prettify-->
-  <pre><code>wsgen -verbose -cp . tw.shunyi.ws.server.CircleFunctions
-</code></pre></li>
-  <li><p>執行以下指令產生給 client site 用的檔案</p>
-  <!--prettify-->
-  <pre><code>wsimport -p tw.shunyi.ws.client -s src -d bin -verbose http://localhost:8080/SimpleWebService/circlefunctions?WSDL
-</code></pre></li>
-  <li><p>建立 client 端程式</p>
-  <!--prettify-->
-  <pre><code>package tw.shunyi.ws.client;
-
-public class Client {
-    private static CircleFunctionsService service;
-
-    public static void main(String[] args) {
-        service = new CircleFunctionsService();
-        CircleFunctions port = service.getCircleFunctionsPort();
-        System.out.println(port.getArea(1.0));
-    }
-}
-</code></pre></li>
-  <li><p>執行結果</p>
-  <pre><code>3.141592653589793
-</code></pre></li>
-</ol></p>
+	<hr>
 	
-	<hr />
-	
-	<p>Older posts are available in the <a href="/archive.html">archive</a>.</p>
-
 		</div>
 		<div id="push"></div>
     </div>
