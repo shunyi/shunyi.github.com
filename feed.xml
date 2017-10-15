@@ -6,30 +6,34 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期六, 14 十月 2017 16:53:27 +0800</pubDate>
-    <lastBuildDate>星期六, 14 十月 2017 16:53:27 +0800</lastBuildDate>
+    <pubDate>星期日, 15 十月 2017 12:04:28 +0800</pubDate>
+    <lastBuildDate>星期日, 15 十月 2017 12:04:28 +0800</lastBuildDate>
 
     <item>
       <title>JBake v2.5.1 安裝</title>
       <link>http://shunyi.github.com/blog/2017/jbake-2.5.1.html</link>
       <pubDate>星期六, 14 十月 2017 00:00:00 +0800</pubDate>
-      <guid isPermaLink="false">/blog/2017/jbake-2.5.1.html</guid>
+      <guid isPermaLink="false">blog/2017/jbake-2.5.1.html</guid>
       	<description>
 	&lt;ol&gt;
-  &lt;li&gt;下載 JBake, 並解壓縮&lt;br/&gt;&lt;code&gt;
-unzip jbake-2.5.1-bin.zip 
-&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;建立 project 目錄，並初始化&lt;br/&gt;&lt;code&gt;
-mkdir project
+  &lt;li&gt;
+  &lt;p&gt;下載 JBake, 並解壓縮&lt;/p&gt;
+  &lt;pre&gt;&lt;code&gt;unzip jbake-2.5.1-bin.zip 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;建立 project 目錄，並初始化&lt;/p&gt;
+  &lt;pre&gt;&lt;code&gt;mkdir project
 cd project/
 ../bin/jbake -i
-&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;產生 output 目錄&lt;br/&gt;&lt;code&gt;
-../bin/jbake -b 
-&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;執行預覽 (若 &lt;strong&gt;content 目錄&lt;/strong&gt; 的資料有改動會自動 update)&lt;br/&gt;&lt;code&gt;
-../bin/jbake -s
-&lt;/code&gt;&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;產生 output 目錄&lt;/p&gt;
+  &lt;pre&gt;&lt;code&gt;../bin/jbake -b 
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;執行預覽 (若 &lt;strong&gt;content 目錄&lt;/strong&gt; 的資料有改動會自動 update)&lt;/p&gt;
+  &lt;pre&gt;&lt;code&gt;../bin/jbake -s
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
   &lt;li&gt;若 blog 已從 &lt;strong&gt;content 目錄&lt;/strong&gt; 刪除，已存在於 &lt;strong&gt;output 目錄&lt;/strong&gt; 的資料還是會被保留&lt;/li&gt;
 &lt;/ol&gt;
 	</description>
@@ -38,12 +42,13 @@ cd project/
       <title>Web Service</title>
       <link>http://shunyi.github.com/blog/2014/web-service-post.html</link>
       <pubDate>星期日, 23 二月 2014 00:00:00 +0800</pubDate>
-      <guid isPermaLink="false">/blog/2014/web-service-post.html</guid>
+      <guid isPermaLink="false">blog/2014/web-service-post.html</guid>
       	<description>
 	&lt;ol&gt;
-  &lt;li&gt;&lt;p&gt;先建立要透過 Web Service 呼叫的 method&lt;/p&gt;
-  &lt;!--prettify--&gt;
-  &lt;pre&gt;&lt;code&gt;package tw.shunyi.ws.server;
+  &lt;li&gt;
+    &lt;p&gt;先建立要透過 Web Service 呼叫的 method&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;package tw.shunyi.ws.server;
 
 import javax.jws.WebService;
 
@@ -58,10 +63,12 @@ public class CircleFunctions {
         return 2 * java.lang.Math.PI * r;
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;p&gt;建立 server 端程式&lt;/p&gt;
-  &lt;!--prettify--&gt;
-  &lt;pre&gt;&lt;code&gt;package tw.shunyi.ws.server;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;建立 server 端程式&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;package tw.shunyi.ws.server;
 
 import javax.xml.ws.Endpoint;
 
@@ -75,10 +82,13 @@ public class Server {
 
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;p&gt;啟動 web server&lt;/p&gt;&lt;p&gt;3.1. 程式會動態產生 wrapper class&lt;/p&gt;
-  &lt;!--prettify--&gt;
-  &lt;pre&gt;&lt;code&gt;2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getRequestWrapperClass
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;啟動 web server&lt;/p&gt;
+    &lt;p&gt;3.1. 程式會動態產生 wrapper class&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getRequestWrapperClass
 資訊: Dynamically creating request wrapper Class tw.shunyi.ws.server.jaxws.GetArea
 2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getResponseWrapperClass
 資訊: Dynamically creating response wrapper bean Class tw.shunyi.ws.server.jaxws.GetAreaResponse
@@ -86,17 +96,22 @@ public class Server {
 資訊: Dynamically creating request wrapper Class tw.shunyi.ws.server.jaxws.GetCircumference
 2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getResponseWrapperClass
 資訊: Dynamically creating response wrapper bean Class tw.shunyi.ws.server.jaxws.GetCircumferenceResponse
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;3.2. 可以執行以下指令來產生 wrapper class, 避免每次重啟 server 都要動態產生&lt;/p&gt;
-  &lt;!--prettify--&gt;
-  &lt;pre&gt;&lt;code&gt;wsgen -verbose -cp . tw.shunyi.ws.server.CircleFunctions
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;p&gt;執行以下指令產生給 client site 用的檔案&lt;/p&gt;
-  &lt;!--prettify--&gt;
-  &lt;pre&gt;&lt;code&gt;wsimport -p tw.shunyi.ws.client -s src -d bin -verbose http://localhost:8080/SimpleWebService/circlefunctions?WSDL
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;p&gt;建立 client 端程式&lt;/p&gt;
-  &lt;!--prettify--&gt;
-  &lt;pre&gt;&lt;code&gt;package tw.shunyi.ws.client;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;3.2. 可以執行以下指令來產生 wrapper class, 避免每次重啟 server 都要動態產生&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;wsgen -verbose -cp . tw.shunyi.ws.server.CircleFunctions
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;執行以下指令產生給 client site 用的檔案&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;wsimport -p tw.shunyi.ws.client -s src -d bin -verbose http://localhost:8080/SimpleWebService/circlefunctions?WSDL
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;建立 client 端程式&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;package tw.shunyi.ws.client;
 
 public class Client {
     private static CircleFunctionsService service;
@@ -107,10 +122,13 @@ public class Client {
         System.out.println(port.getArea(1.0));
     }
 }
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;p&gt;執行結果&lt;/p&gt;
-  &lt;pre&gt;&lt;code&gt;3.141592653589793
-&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;執行結果&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt;3.141592653589793
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
 &lt;/ol&gt;
 	</description>
     </item>

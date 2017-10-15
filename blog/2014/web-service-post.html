@@ -7,17 +7,17 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <meta name="keywords" content="">
-    <meta name="generator" content"JBake">
+    <meta name="generator" content="JBake">
 
     <!-- Le styles -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/asciidoctor.css" rel="stylesheet">
-    <link href="/css/base.css" rel="stylesheet">
-    <link href="/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
-      <script src="/js/html5shiv.js"></script>
+      <script src="../../js/html5shiv.min.js"></script>
     <![endif]-->
 
     <!-- Fav and touch icons -->
@@ -26,30 +26,31 @@
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
   </head>
-  <body>
+  <body onload="prettyPrint()">
     <div id="wrap">
 	
 	<!-- Fixed navbar -->
-      <div class="navbar navbar-fixed-top">
-        <div class="navbar-inner">
-          <div class="container">
-            <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="brand" href="/">Java Piece</a>
-            <div class="nav-collapse collapse">
-              <ul class="nav">
-                <li><a href="/index.html">Home</a></li>
-                <li><a href="/about.html">About</a></li>
-                <li><a href="/feed.xml">RSS</a></li>
-              </ul>
-            </div><!--/.nav-collapse -->
-          </div>
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">Java Piece</a>
         </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">RSS</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
-      <div class="container">	
+    </div>
+    <div class="container">	
 	<div class="page-header">
 		<h1>Web Service</h1>
 	</div>
@@ -57,9 +58,10 @@
 	<p><em>2014/2/23</em></p>
 
 	<p><ol>
-  <li><p>先建立要透過 Web Service 呼叫的 method</p>
-  <!--prettify-->
-  <pre><code>package tw.shunyi.ws.server;
+  <li>
+    <p>先建立要透過 Web Service 呼叫的 method</p>
+    <!--prettify-->
+    <pre><code>package tw.shunyi.ws.server;
 
 import javax.jws.WebService;
 
@@ -74,10 +76,12 @@ public class CircleFunctions {
         return 2 * java.lang.Math.PI * r;
     }
 }
-</code></pre></li>
-  <li><p>建立 server 端程式</p>
-  <!--prettify-->
-  <pre><code>package tw.shunyi.ws.server;
+</code></pre>
+  </li>
+  <li>
+    <p>建立 server 端程式</p>
+    <!--prettify-->
+    <pre><code>package tw.shunyi.ws.server;
 
 import javax.xml.ws.Endpoint;
 
@@ -91,10 +95,13 @@ public class Server {
 
     }
 }
-</code></pre></li>
-  <li><p>啟動 web server</p><p>3.1. 程式會動態產生 wrapper class</p>
-  <!--prettify-->
-  <pre><code>2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getRequestWrapperClass
+</code></pre>
+  </li>
+  <li>
+    <p>啟動 web server</p>
+    <p>3.1. 程式會動態產生 wrapper class</p>
+    <!--prettify-->
+    <pre><code>2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getRequestWrapperClass
 資訊: Dynamically creating request wrapper Class tw.shunyi.ws.server.jaxws.GetArea
 2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getResponseWrapperClass
 資訊: Dynamically creating response wrapper bean Class tw.shunyi.ws.server.jaxws.GetAreaResponse
@@ -102,17 +109,22 @@ public class Server {
 資訊: Dynamically creating request wrapper Class tw.shunyi.ws.server.jaxws.GetCircumference
 2014/2/23 上午 09:11:19 com.sun.xml.internal.ws.model.RuntimeModeler getResponseWrapperClass
 資訊: Dynamically creating response wrapper bean Class tw.shunyi.ws.server.jaxws.GetCircumferenceResponse
-</code></pre><p>3.2. 可以執行以下指令來產生 wrapper class, 避免每次重啟 server 都要動態產生</p>
-  <!--prettify-->
-  <pre><code>wsgen -verbose -cp . tw.shunyi.ws.server.CircleFunctions
-</code></pre></li>
-  <li><p>執行以下指令產生給 client site 用的檔案</p>
-  <!--prettify-->
-  <pre><code>wsimport -p tw.shunyi.ws.client -s src -d bin -verbose http://localhost:8080/SimpleWebService/circlefunctions?WSDL
-</code></pre></li>
-  <li><p>建立 client 端程式</p>
-  <!--prettify-->
-  <pre><code>package tw.shunyi.ws.client;
+</code></pre>
+    <p>3.2. 可以執行以下指令來產生 wrapper class, 避免每次重啟 server 都要動態產生</p>
+    <!--prettify-->
+    <pre><code>wsgen -verbose -cp . tw.shunyi.ws.server.CircleFunctions
+</code></pre>
+  </li>
+  <li>
+    <p>執行以下指令產生給 client site 用的檔案</p>
+    <!--prettify-->
+    <pre><code>wsimport -p tw.shunyi.ws.client -s src -d bin -verbose http://localhost:8080/SimpleWebService/circlefunctions?WSDL
+</code></pre>
+  </li>
+  <li>
+    <p>建立 client 端程式</p>
+    <!--prettify-->
+    <pre><code>package tw.shunyi.ws.client;
 
 public class Client {
     private static CircleFunctionsService service;
@@ -123,13 +135,16 @@ public class Client {
         System.out.println(port.getArea(1.0));
     }
 }
-</code></pre></li>
-  <li><p>執行結果</p>
-  <pre><code>3.141592653589793
-</code></pre></li>
+</code></pre>
+  </li>
+  <li>
+    <p>執行結果</p>
+    <pre><code>3.141592653589793
+</code></pre>
+  </li>
 </ol></p>
 
-	<hr>
+	<hr />
 	
 		</div>
 		<div id="push"></div>
@@ -137,16 +152,16 @@ public class Client {
     
     <div id="footer">
       <div class="container">
-        <p class="muted credit">&copy; 2013 | Mixed with <a href="http://twitter.github.com/bootstrap/">Bootstrap v2.3.1</a> | Baked with <a href="http://jbake.org">JBake v2.2.1</a></p>
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
       </div>
     </div>
     
     <!-- Le javascript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="/js/jquery-1.9.1.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
-    <script src="/js/run_prettify.js"></script>
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
     
   </body>
 </html>
