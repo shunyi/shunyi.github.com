@@ -6,9 +6,24 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期日, 15 十月 2017 12:04:28 +0800</pubDate>
-    <lastBuildDate>星期日, 15 十月 2017 12:04:28 +0800</lastBuildDate>
+    <pubDate>星期六, 11 十一月 2017 12:33:54 +0800</pubDate>
+    <lastBuildDate>星期六, 11 十一月 2017 12:33:54 +0800</lastBuildDate>
 
+    <item>
+      <title>Firefox for Debain Jessie</title>
+      <link>http://shunyi.github.com/blog/2017/debian-jessie-firefox.html</link>
+      <pubDate>星期日, 29 十月 2017 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2017/debian-jessie-firefox.html</guid>
+      	<description>
+	&lt;p&gt;想把 Debian Jessie 的 Iceweasel 升級成 &lt;a href=&quot;https://packages.debian.org/jessie/firefox-esr&quot;&gt;Firefox ESR&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;按照 &lt;a href=&quot;https://mozilla.debian.net/&quot;&gt;Debian Mozilla Team&lt;/a&gt; 網頁上提供的訊息，應該是有 Firefox ESR 52 可以安裝&lt;/p&gt;
+&lt;p&gt;但是照網頁上的指示，更新 /etc/apt/sources.list 並執行 apt-get 後，卻顯示錯誤訊息：&lt;/p&gt;
+&lt;p&gt;　　Package firefox-esr is not available, but is referred to by another package.&lt;br/&gt;　　This may mean that the package is missing, has been obsoleted, or&lt;br/&gt;　　is only available from another source&lt;/p&gt;
+&lt;p&gt;　　E: Package &apos;firefox-esr&apos; has no installation candidate&lt;/p&gt;
+&lt;p&gt;寫信去 &lt;a href=&quot;mailto:&amp;#x70;&amp;#x6b;g&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;i&amp;#x6c;&amp;#x6c;&amp;#97;&amp;#x2d;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6e;&amp;#x74;&amp;#97;&amp;#105;&amp;#110;e&amp;#x72;&amp;#115;&amp;#x40;l&amp;#x69;&amp;#x73;&amp;#116;&amp;#115;&amp;#46;&amp;#97;&amp;#x6c;&amp;#105;&amp;#x6f;&amp;#116;&amp;#x68;&amp;#46;d&amp;#x65;&amp;#98;&amp;#105;a&amp;#x6e;&amp;#x2e;&amp;#x6f;&amp;#114;&amp;#103;&quot;&gt;&amp;#x70;&amp;#x6b;g&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;i&amp;#x6c;&amp;#x6c;&amp;#97;&amp;#x2d;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6e;&amp;#x74;&amp;#97;&amp;#105;&amp;#110;e&amp;#x72;&amp;#115;&amp;#x40;l&amp;#x69;&amp;#x73;&amp;#116;&amp;#115;&amp;#46;&amp;#97;&amp;#x6c;&amp;#105;&amp;#x6f;&amp;#116;&amp;#x68;&amp;#46;d&amp;#x65;&amp;#98;&amp;#105;a&amp;#x6e;&amp;#x2e;&amp;#x6f;&amp;#114;&amp;#103;&lt;/a&gt; 問也沒有回應 ...&lt;/p&gt;
+&lt;p&gt;所以 Firefox ESR 應該已經不支援 Jessie 了...&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>JBake v2.5.1 安裝</title>
       <link>http://shunyi.github.com/blog/2017/jbake-2.5.1.html</link>
