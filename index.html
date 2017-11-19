@@ -54,6 +54,27 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="blog/2017/tika-artifacts.html"><h1>Apache Tika artifacts</h1></a>
+  			<p>04 十一月 2017</p>
+  			<p><h3>tika-core/target/tika-core-*.jar</h3>
+<p>　　Tika core library. Contains the core interfaces and classes of Tika, but none of the parser implementations. Depends only on Java 6.</p>
+<p>　　Tika 的核心函式庫，不包含任何 Parser</p>
+<h3>tika-parsers/target/tika-parsers-*.jar</h3>
+<p>　　Tika parsers. Collection of classes that implement the Tika Parser interface based on various external parser libraries.</p>
+<p>　　Tika Parser 函式庫的彙集 </p>
+<h3>tika-app/target/tika-app-*.jar</h3>
+<p>　　Tika application. Combines the above components and all the external parser libraries into a single runnable jar with a GUI and a command line interface.</p>
+<p>　　命令列模式的 Tika，相關說明請<a href="https://tika.apache.org/1.16/gettingstarted.html#Using_Tika_as_a_command_line_utility">參考連結</a></p>
+<h3>tika-server/target/tika-server-*.jar</h3>
+<p>　　Tika JAX-RS REST application. This is a Jetty web server running Tika REST services.</p>
+<p>　　在 Jetty 上提供 Tika REST 服務，相關說明請<a href="https://wiki.apache.org/tika/TikaJAXRS">參考連結</a></p>
+<h3>tika-bundle/target/tika-bundle-*.jar</h3>
+<p>　　Tika bundle. An OSGi bundle that combines tika-parsers with non-OSGified parser libraries to make them easy to deploy in an OSGi environment.</p>
+<p>　　Tika 的 OSGi bundle</p>
+<h3>tika-eval-*.jar</h3>
+<p>　　沒有包含任何 Parser 的版本</p>
+<h3>參考文件</h3>
+<p>　　<a href="https://tika.apache.org/1.16/gettingstarted.html#Build_artifacts">Build artifacts</a><br/>　　<a href="https://tika.apache.org/download.html#Download_Apache_Tika">Download Apache Tika</a></p></p>
   			<a href="blog/2017/debian-jessie-firefox.html"><h1>Firefox for Debain Jessie</h1></a>
   			<p>29 十月 2017</p>
   			<p><p>想把 Debian Jessie 的 Iceweasel 升級成 <a href="https://packages.debian.org/jessie/firefox-esr">Firefox ESR</a></p>
@@ -61,7 +82,7 @@
 <p>但是照網頁上的指示，更新 /etc/apt/sources.list 並執行 apt-get 後，卻顯示錯誤訊息：</p>
 <p>　　Package firefox-esr is not available, but is referred to by another package.<br/>　　This may mean that the package is missing, has been obsoleted, or<br/>　　is only available from another source</p>
 <p>　　E: Package 'firefox-esr' has no installation candidate</p>
-<p>寫信去 <a href="mailto:&#x70;&#x6b;g&#x2d;&#x6d;&#x6f;&#122;i&#x6c;&#x6c;&#97;&#x2d;&#x6d;&#97;&#105;&#x6e;&#x74;&#97;&#105;&#110;e&#x72;&#115;&#x40;l&#x69;&#x73;&#116;&#115;&#46;&#97;&#x6c;&#105;&#x6f;&#116;&#x68;&#46;d&#x65;&#98;&#105;a&#x6e;&#x2e;&#x6f;&#114;&#103;">&#x70;&#x6b;g&#x2d;&#x6d;&#x6f;&#122;i&#x6c;&#x6c;&#97;&#x2d;&#x6d;&#97;&#105;&#x6e;&#x74;&#97;&#105;&#110;e&#x72;&#115;&#x40;l&#x69;&#x73;&#116;&#115;&#46;&#97;&#x6c;&#105;&#x6f;&#116;&#x68;&#46;d&#x65;&#98;&#105;a&#x6e;&#x2e;&#x6f;&#114;&#103;</a> 問也沒有回應 ...</p>
+<p>寫信去 <a href="mailto:p&#x6b;&#103;-&#x6d;&#x6f;z&#105;&#108;&#108;a&#45;&#x6d;a&#x69;&#x6e;tai&#x6e;&#x65;&#114;s&#64;&#x6c;&#105;&#115;&#x74;s&#46;&#97;&#x6c;&#x69;o&#116;&#x68;&#46;&#x64;e&#98;ia&#110;&#x2e;&#x6f;r&#x67;">p&#x6b;&#103;-&#x6d;&#x6f;z&#105;&#108;&#108;a&#45;&#x6d;a&#x69;&#x6e;tai&#x6e;&#x65;&#114;s&#64;&#x6c;&#105;&#115;&#x74;s&#46;&#97;&#x6c;&#x69;o&#116;&#x68;&#46;&#x64;e&#98;ia&#110;&#x2e;&#x6f;r&#x67;</a> 問也沒有回應 ...</p>
 <p>所以 Firefox ESR 應該已經不支援 Jessie 了...</p></p>
   			<a href="blog/2017/jbake-2.5.1.html"><h1>JBake v2.5.1 安裝</h1></a>
   			<p>14 十月 2017</p>

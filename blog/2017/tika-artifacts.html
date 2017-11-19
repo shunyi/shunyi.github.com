@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Apache Tika artifacts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">Java Piece</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">RSS</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>Apache Tika artifacts</h1>
+	</div>
+
+	<p><em>2017/11/4</em></p>
+
+	<p><h3>tika-core/target/tika-core-*.jar</h3>
+<p>　　Tika core library. Contains the core interfaces and classes of Tika, but none of the parser implementations. Depends only on Java 6.</p>
+<p>　　Tika 的核心函式庫，不包含任何 Parser</p>
+<h3>tika-parsers/target/tika-parsers-*.jar</h3>
+<p>　　Tika parsers. Collection of classes that implement the Tika Parser interface based on various external parser libraries.</p>
+<p>　　Tika Parser 函式庫的彙集 </p>
+<h3>tika-app/target/tika-app-*.jar</h3>
+<p>　　Tika application. Combines the above components and all the external parser libraries into a single runnable jar with a GUI and a command line interface.</p>
+<p>　　命令列模式的 Tika，相關說明請<a href="https://tika.apache.org/1.16/gettingstarted.html#Using_Tika_as_a_command_line_utility">參考連結</a></p>
+<h3>tika-server/target/tika-server-*.jar</h3>
+<p>　　Tika JAX-RS REST application. This is a Jetty web server running Tika REST services.</p>
+<p>　　在 Jetty 上提供 Tika REST 服務，相關說明請<a href="https://wiki.apache.org/tika/TikaJAXRS">參考連結</a></p>
+<h3>tika-bundle/target/tika-bundle-*.jar</h3>
+<p>　　Tika bundle. An OSGi bundle that combines tika-parsers with non-OSGified parser libraries to make them easy to deploy in an OSGi environment.</p>
+<p>　　Tika 的 OSGi bundle</p>
+<h3>tika-eval-*.jar</h3>
+<p>　　沒有包含任何 Parser 的版本</p>
+<h3>參考文件</h3>
+<p>　　<a href="https://tika.apache.org/1.16/gettingstarted.html#Build_artifacts">Build artifacts</a><br/>　　<a href="https://tika.apache.org/download.html#Download_Apache_Tika">Download Apache Tika</a></p></p>
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

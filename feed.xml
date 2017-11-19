@@ -6,9 +6,36 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期六, 11 十一月 2017 12:33:54 +0800</pubDate>
-    <lastBuildDate>星期六, 11 十一月 2017 12:33:54 +0800</lastBuildDate>
+    <pubDate>星期日, 19 十一月 2017 13:10:28 +0800</pubDate>
+    <lastBuildDate>星期日, 19 十一月 2017 13:10:28 +0800</lastBuildDate>
 
+    <item>
+      <title>Apache Tika artifacts</title>
+      <link>http://shunyi.github.com/blog/2017/tika-artifacts.html</link>
+      <pubDate>星期六, 4 十一月 2017 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2017/tika-artifacts.html</guid>
+      	<description>
+	&lt;h3&gt;tika-core/target/tika-core-*.jar&lt;/h3&gt;
+&lt;p&gt;　　Tika core library. Contains the core interfaces and classes of Tika, but none of the parser implementations. Depends only on Java 6.&lt;/p&gt;
+&lt;p&gt;　　Tika 的核心函式庫，不包含任何 Parser&lt;/p&gt;
+&lt;h3&gt;tika-parsers/target/tika-parsers-*.jar&lt;/h3&gt;
+&lt;p&gt;　　Tika parsers. Collection of classes that implement the Tika Parser interface based on various external parser libraries.&lt;/p&gt;
+&lt;p&gt;　　Tika Parser 函式庫的彙集 &lt;/p&gt;
+&lt;h3&gt;tika-app/target/tika-app-*.jar&lt;/h3&gt;
+&lt;p&gt;　　Tika application. Combines the above components and all the external parser libraries into a single runnable jar with a GUI and a command line interface.&lt;/p&gt;
+&lt;p&gt;　　命令列模式的 Tika，相關說明請&lt;a href=&quot;https://tika.apache.org/1.16/gettingstarted.html#Using_Tika_as_a_command_line_utility&quot;&gt;參考連結&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;tika-server/target/tika-server-*.jar&lt;/h3&gt;
+&lt;p&gt;　　Tika JAX-RS REST application. This is a Jetty web server running Tika REST services.&lt;/p&gt;
+&lt;p&gt;　　在 Jetty 上提供 Tika REST 服務，相關說明請&lt;a href=&quot;https://wiki.apache.org/tika/TikaJAXRS&quot;&gt;參考連結&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;tika-bundle/target/tika-bundle-*.jar&lt;/h3&gt;
+&lt;p&gt;　　Tika bundle. An OSGi bundle that combines tika-parsers with non-OSGified parser libraries to make them easy to deploy in an OSGi environment.&lt;/p&gt;
+&lt;p&gt;　　Tika 的 OSGi bundle&lt;/p&gt;
+&lt;h3&gt;tika-eval-*.jar&lt;/h3&gt;
+&lt;p&gt;　　沒有包含任何 Parser 的版本&lt;/p&gt;
+&lt;h3&gt;參考文件&lt;/h3&gt;
+&lt;p&gt;　　&lt;a href=&quot;https://tika.apache.org/1.16/gettingstarted.html#Build_artifacts&quot;&gt;Build artifacts&lt;/a&gt;&lt;br/&gt;　　&lt;a href=&quot;https://tika.apache.org/download.html#Download_Apache_Tika&quot;&gt;Download Apache Tika&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Firefox for Debain Jessie</title>
       <link>http://shunyi.github.com/blog/2017/debian-jessie-firefox.html</link>
@@ -20,7 +47,7 @@
 &lt;p&gt;但是照網頁上的指示，更新 /etc/apt/sources.list 並執行 apt-get 後，卻顯示錯誤訊息：&lt;/p&gt;
 &lt;p&gt;　　Package firefox-esr is not available, but is referred to by another package.&lt;br/&gt;　　This may mean that the package is missing, has been obsoleted, or&lt;br/&gt;　　is only available from another source&lt;/p&gt;
 &lt;p&gt;　　E: Package &apos;firefox-esr&apos; has no installation candidate&lt;/p&gt;
-&lt;p&gt;寫信去 &lt;a href=&quot;mailto:&amp;#x70;&amp;#x6b;g&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;i&amp;#x6c;&amp;#x6c;&amp;#97;&amp;#x2d;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6e;&amp;#x74;&amp;#97;&amp;#105;&amp;#110;e&amp;#x72;&amp;#115;&amp;#x40;l&amp;#x69;&amp;#x73;&amp;#116;&amp;#115;&amp;#46;&amp;#97;&amp;#x6c;&amp;#105;&amp;#x6f;&amp;#116;&amp;#x68;&amp;#46;d&amp;#x65;&amp;#98;&amp;#105;a&amp;#x6e;&amp;#x2e;&amp;#x6f;&amp;#114;&amp;#103;&quot;&gt;&amp;#x70;&amp;#x6b;g&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;i&amp;#x6c;&amp;#x6c;&amp;#97;&amp;#x2d;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6e;&amp;#x74;&amp;#97;&amp;#105;&amp;#110;e&amp;#x72;&amp;#115;&amp;#x40;l&amp;#x69;&amp;#x73;&amp;#116;&amp;#115;&amp;#46;&amp;#97;&amp;#x6c;&amp;#105;&amp;#x6f;&amp;#116;&amp;#x68;&amp;#46;d&amp;#x65;&amp;#98;&amp;#105;a&amp;#x6e;&amp;#x2e;&amp;#x6f;&amp;#114;&amp;#103;&lt;/a&gt; 問也沒有回應 ...&lt;/p&gt;
+&lt;p&gt;寫信去 &lt;a href=&quot;mailto:p&amp;#x6b;&amp;#103;-&amp;#x6d;&amp;#x6f;z&amp;#105;&amp;#108;&amp;#108;a&amp;#45;&amp;#x6d;a&amp;#x69;&amp;#x6e;tai&amp;#x6e;&amp;#x65;&amp;#114;s&amp;#64;&amp;#x6c;&amp;#105;&amp;#115;&amp;#x74;s&amp;#46;&amp;#97;&amp;#x6c;&amp;#x69;o&amp;#116;&amp;#x68;&amp;#46;&amp;#x64;e&amp;#98;ia&amp;#110;&amp;#x2e;&amp;#x6f;r&amp;#x67;&quot;&gt;p&amp;#x6b;&amp;#103;-&amp;#x6d;&amp;#x6f;z&amp;#105;&amp;#108;&amp;#108;a&amp;#45;&amp;#x6d;a&amp;#x69;&amp;#x6e;tai&amp;#x6e;&amp;#x65;&amp;#114;s&amp;#64;&amp;#x6c;&amp;#105;&amp;#115;&amp;#x74;s&amp;#46;&amp;#97;&amp;#x6c;&amp;#x69;o&amp;#116;&amp;#x68;&amp;#46;&amp;#x64;e&amp;#98;ia&amp;#110;&amp;#x2e;&amp;#x6f;r&amp;#x67;&lt;/a&gt; 問也沒有回應 ...&lt;/p&gt;
 &lt;p&gt;所以 Firefox ESR 應該已經不支援 Jessie 了...&lt;/p&gt;
 	</description>
     </item>
