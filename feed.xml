@@ -6,9 +6,152 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期日, 19 十一月 2017 13:10:28 +0800</pubDate>
-    <lastBuildDate>星期日, 19 十一月 2017 13:10:28 +0800</lastBuildDate>
+    <pubDate>星期五, 24 十一月 2017 21:41:42 +0800</pubDate>
+    <lastBuildDate>星期五, 24 十一月 2017 21:41:42 +0800</lastBuildDate>
 
+    <item>
+      <title>Apache Tika 範例</title>
+      <link>http://shunyi.github.com/blog/2017/tika-basic-sample.html</link>
+      <pubDate>星期日, 19 十一月 2017 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2017/tika-basic-sample.html</guid>
+      	<description>
+	&lt;p&gt;可利用 Tika 來取得檔案的內文、&lt;a href=&quot;https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE&quot;&gt;Metadata&lt;/a&gt; 以及 &lt;a href=&quot;https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E5%AA%92%E4%BD%93%E7%B1%BB%E5%9E%8B&quot;&gt;MIME type&lt;/a&gt;&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;先準備 pom.xml，在 &lt;code&gt;&amp;lt;dependency&amp;gt;&lt;/code&gt; 中加入：&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;dependencies&amp;gt;
+    &amp;lt;dependency&amp;gt;
+       &amp;lt;groupId&amp;gt;org.apache.tika&amp;lt;/groupId&amp;gt;
+       &amp;lt;artifactId&amp;gt;tika-core&amp;lt;/artifactId&amp;gt;
+       &amp;lt;version&amp;gt;1.16&amp;lt;/version&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+       &amp;lt;groupId&amp;gt;org.apache.tika&amp;lt;/groupId&amp;gt;
+       &amp;lt;artifactId&amp;gt;tika-parsers&amp;lt;/artifactId&amp;gt;
+       &amp;lt;version&amp;gt;1.16&amp;lt;/version&amp;gt;
+       &amp;lt;!-- 不知為何 tika-parsers 會依賴於 cxf-rt-rs-client 和 quartz，在這個範例中我先把它排除掉 --&amp;gt;
+       &amp;lt;exclusions&amp;gt;
+         &amp;lt;exclusion&amp;gt;
+          &amp;lt;groupId&amp;gt;org.apache.cxf&amp;lt;/groupId&amp;gt;
+          &amp;lt;artifactId&amp;gt;cxf-rt-rs-client&amp;lt;/artifactId&amp;gt;
+         &amp;lt;/exclusion&amp;gt;
+         &amp;lt;exclusion&amp;gt;
+          &amp;lt;groupId&amp;gt;org.quartz-scheduler&amp;lt;/groupId&amp;gt;
+          &amp;lt;artifactId&amp;gt;quartz&amp;lt;/artifactId&amp;gt;
+         &amp;lt;/exclusion&amp;gt;
+       &amp;lt;/exclusions&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+    &amp;lt;dependency&amp;gt;
+       &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt;
+       &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt;
+       &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt;
+       &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+&amp;lt;/dependencies&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;執行 &lt;code&gt;mvn eclipse:eclipse&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;打開 Eclipse，並將剛剛建立的 project 匯入&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;建立 TikaTest.java&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;package idv.shunyi.tika;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.Reader;
+
+import org.apache.tika.Tika;
+import org.apache.tika.metadata.Metadata;
+import org.junit.Before;
+import org.junit.Test;
+
+public class TikaTest {
+    private Tika tika;
+    private File file;
+
+    @Before
+    public void setUp() throws Exception {
+       tika = new Tika();
+       file = new File(TikaTest.class.getResource(&amp;quot;/test.html&amp;quot;).toURI());
+    }
+
+    @Test
+    public void testParse() throws Exception {
+       Metadata metadata = new Metadata();
+
+       try (InputStream in = new FileInputStream(file)) {
+         Reader reader = tika.parse(in, metadata);
+
+         try (BufferedReader br = new BufferedReader(reader)) {
+
+          // Print extracted text content
+          System.out.println(&amp;quot;### extracted text content&amp;quot;);
+          for (String text; (text = br.readLine()) != null;) {
+              System.out.println(text);
+          }
+          System.out.println();
+
+          // Print meta data
+          System.out.println(&amp;quot;### metadata&amp;quot;);
+          for (String name : metadata.names()) {
+              System.out.println(name + &amp;quot; = &amp;quot; + metadata.get(name));
+          }
+          System.out.println();
+         }
+       }
+    }
+
+    @Test
+    public void testParseToString() throws Exception {
+       System.out.println(&amp;quot;### parse to string&amp;quot;);
+       try (InputStream stream = new FileInputStream(file)) {
+         String text =  tika.parseToString(stream);
+         System.out.println(text);
+       }
+       System.out.println();
+    }
+
+    @Test
+    public void testDetect() throws Exception {
+       System.out.println(&amp;quot;### detect media type&amp;quot;);
+       String mimeType = tika.detect(file);
+       System.out.println(mimeType);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;執行結果如下：&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;### extracted text content
+
+    這是內文
+
+### metadata
+X-Parsed-By = org.apache.tika.parser.DefaultParser
+dc:title = 這是標題
+Content-Encoding = UTF-8
+title = 這是標題
+Content-Type = text/html; charset=UTF-8
+
+### parse to string
+
+    這是內文
+
+
+### detect media type
+text/html
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+	</description>
+    </item>
     <item>
       <title>Apache Tika artifacts</title>
       <link>http://shunyi.github.com/blog/2017/tika-artifacts.html</link>
@@ -47,7 +190,7 @@
 &lt;p&gt;但是照網頁上的指示，更新 /etc/apt/sources.list 並執行 apt-get 後，卻顯示錯誤訊息：&lt;/p&gt;
 &lt;p&gt;　　Package firefox-esr is not available, but is referred to by another package.&lt;br/&gt;　　This may mean that the package is missing, has been obsoleted, or&lt;br/&gt;　　is only available from another source&lt;/p&gt;
 &lt;p&gt;　　E: Package &apos;firefox-esr&apos; has no installation candidate&lt;/p&gt;
-&lt;p&gt;寫信去 &lt;a href=&quot;mailto:p&amp;#x6b;&amp;#103;-&amp;#x6d;&amp;#x6f;z&amp;#105;&amp;#108;&amp;#108;a&amp;#45;&amp;#x6d;a&amp;#x69;&amp;#x6e;tai&amp;#x6e;&amp;#x65;&amp;#114;s&amp;#64;&amp;#x6c;&amp;#105;&amp;#115;&amp;#x74;s&amp;#46;&amp;#97;&amp;#x6c;&amp;#x69;o&amp;#116;&amp;#x68;&amp;#46;&amp;#x64;e&amp;#98;ia&amp;#110;&amp;#x2e;&amp;#x6f;r&amp;#x67;&quot;&gt;p&amp;#x6b;&amp;#103;-&amp;#x6d;&amp;#x6f;z&amp;#105;&amp;#108;&amp;#108;a&amp;#45;&amp;#x6d;a&amp;#x69;&amp;#x6e;tai&amp;#x6e;&amp;#x65;&amp;#114;s&amp;#64;&amp;#x6c;&amp;#105;&amp;#115;&amp;#x74;s&amp;#46;&amp;#97;&amp;#x6c;&amp;#x69;o&amp;#116;&amp;#x68;&amp;#46;&amp;#x64;e&amp;#98;ia&amp;#110;&amp;#x2e;&amp;#x6f;r&amp;#x67;&lt;/a&gt; 問也沒有回應 ...&lt;/p&gt;
+&lt;p&gt;寫信去 &lt;a href=&quot;mailto:p&amp;#x6b;&amp;#x67;&amp;#45;&amp;#109;&amp;#x6f;&amp;#x7a;&amp;#x69;l&amp;#108;&amp;#97;&amp;#45;m&amp;#x61;&amp;#105;&amp;#x6e;&amp;#116;&amp;#97;&amp;#x69;&amp;#x6e;&amp;#101;&amp;#114;&amp;#x73;&amp;#64;&amp;#108;&amp;#x69;&amp;#115;&amp;#116;&amp;#x73;.&amp;#97;&amp;#108;i&amp;#x6f;t&amp;#104;&amp;#46;&amp;#x64;&amp;#x65;&amp;#98;&amp;#105;&amp;#x61;&amp;#110;&amp;#x2e;&amp;#x6f;&amp;#x72;&amp;#x67;&quot;&gt;p&amp;#x6b;&amp;#x67;&amp;#45;&amp;#109;&amp;#x6f;&amp;#x7a;&amp;#x69;l&amp;#108;&amp;#97;&amp;#45;m&amp;#x61;&amp;#105;&amp;#x6e;&amp;#116;&amp;#97;&amp;#x69;&amp;#x6e;&amp;#101;&amp;#114;&amp;#x73;&amp;#64;&amp;#108;&amp;#x69;&amp;#115;&amp;#116;&amp;#x73;.&amp;#97;&amp;#108;i&amp;#x6f;t&amp;#104;&amp;#46;&amp;#x64;&amp;#x65;&amp;#98;&amp;#105;&amp;#x61;&amp;#110;&amp;#x2e;&amp;#x6f;&amp;#x72;&amp;#x67;&lt;/a&gt; 問也沒有回應 ...&lt;/p&gt;
 &lt;p&gt;所以 Firefox ESR 應該已經不支援 Jessie 了...&lt;/p&gt;
 	</description>
     </item>
