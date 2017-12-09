@@ -6,9 +6,62 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期五, 24 十一月 2017 21:41:42 +0800</pubDate>
-    <lastBuildDate>星期五, 24 十一月 2017 21:41:42 +0800</lastBuildDate>
+    <pubDate>星期六, 9 十二月 2017 15:27:47 +0800</pubDate>
+    <lastBuildDate>星期六, 9 十二月 2017 15:27:47 +0800</lastBuildDate>
 
+    <item>
+      <title>Open NTP Daemon</title>
+      <link>http://shunyi.github.com/blog/2017/openntpd.html</link>
+      <pubDate>星期六, 9 十二月 2017 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2017/openntpd.html</guid>
+      	<description>
+	&lt;ol&gt;
+  &lt;li&gt;
+  &lt;p&gt;安裝環境&lt;br/&gt;Debain Jessie&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;先安裝 openntpd&lt;/p&gt;
+  &lt;pre&gt;&lt;code&gt;apt-get install openntpd
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;若要使用國內的 NTP 伺服器，可修改 openntpd 的設定檔，並加入以下設定&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt;#將預設的國外 NTP 伺服器註解掉
+#servers 0.debian.pool.ntp.org
+#servers 1.debian.pool.ntp.org
+#servers 2.debian.pool.ntp.org
+#servers 3.debian.pool.ntp.org
+
+servers tock.stdtime.gov.tw
+servers time.stdtime.gov.tw
+servers clock.stdtime.gov.tw 
+servers tick.stdtime.gov.tw
+servers watch.stdtime.gov.tw
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;安裝完後 openntpd 就會自動於 daemon 執行了，若要確認 openntpd 有正確運作，可使用以下指令&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt;systemctl status openntpd
+
+#執行結果如下，Active 為 running 代表有正確執行
+● openntpd.service - OpenNTPd Network Time Protocol
+   Loaded: loaded (/lib/systemd/system/openntpd.service; enabled)
+   Active: active (running) since Sat 2017-12-09 12:05:17 CST; 2h 41min ago
+  Process: 3715 ExecStart=/usr/sbin/ntpd $DAEMON_OPTS (code=exited, status=0/SUCCESS)
+  Process: 3712 ExecStartPre=/usr/sbin/ntpd -n $DAEMON_OPTS (code=exited, status=0/SUCCESS)
+ Main PID: 3717 (ntpd)
+   CGroup: /system.slice/openntpd.service
+           ├─3717 /usr/sbin/ntpd -f /etc/openntpd/ntpd.conf
+           ├─3718 ntpd: ntp engine
+           └─3719 ntpd: dns engine
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;若要手動執行 openntpd，可使用以下指令&lt;/p&gt;
+  &lt;pre&gt;&lt;code&gt;ntpd -dsv
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;參考資料&lt;br/&gt;　　&lt;a href=&quot;http://www.stdtime.gov.tw/Time/ntp/resource.htm&quot;&gt;NTP 的網路資源&lt;/a&gt;&lt;br/&gt;　　&lt;a href=&quot;http://www.stdtime.gov.tw/chinese/bulletin/NTP%E6%96%B0%E5%A2%9E%E9%A0%BB%E5%AF%AC.txt&quot;&gt;NTP 新增頻寬&lt;/a&gt;&lt;br/&gt;　　&lt;a href=&quot;http://www.stdtime.gov.tw/chinese/bulletin/NTP%20promo.txt&quot;&gt;NTP 伺服器&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Apache Tika 範例</title>
       <link>http://shunyi.github.com/blog/2017/tika-basic-sample.html</link>
@@ -190,7 +243,7 @@ text/html
 &lt;p&gt;但是照網頁上的指示，更新 /etc/apt/sources.list 並執行 apt-get 後，卻顯示錯誤訊息：&lt;/p&gt;
 &lt;p&gt;　　Package firefox-esr is not available, but is referred to by another package.&lt;br/&gt;　　This may mean that the package is missing, has been obsoleted, or&lt;br/&gt;　　is only available from another source&lt;/p&gt;
 &lt;p&gt;　　E: Package &apos;firefox-esr&apos; has no installation candidate&lt;/p&gt;
-&lt;p&gt;寫信去 &lt;a href=&quot;mailto:p&amp;#x6b;&amp;#x67;&amp;#45;&amp;#109;&amp;#x6f;&amp;#x7a;&amp;#x69;l&amp;#108;&amp;#97;&amp;#45;m&amp;#x61;&amp;#105;&amp;#x6e;&amp;#116;&amp;#97;&amp;#x69;&amp;#x6e;&amp;#101;&amp;#114;&amp;#x73;&amp;#64;&amp;#108;&amp;#x69;&amp;#115;&amp;#116;&amp;#x73;.&amp;#97;&amp;#108;i&amp;#x6f;t&amp;#104;&amp;#46;&amp;#x64;&amp;#x65;&amp;#98;&amp;#105;&amp;#x61;&amp;#110;&amp;#x2e;&amp;#x6f;&amp;#x72;&amp;#x67;&quot;&gt;p&amp;#x6b;&amp;#x67;&amp;#45;&amp;#109;&amp;#x6f;&amp;#x7a;&amp;#x69;l&amp;#108;&amp;#97;&amp;#45;m&amp;#x61;&amp;#105;&amp;#x6e;&amp;#116;&amp;#97;&amp;#x69;&amp;#x6e;&amp;#101;&amp;#114;&amp;#x73;&amp;#64;&amp;#108;&amp;#x69;&amp;#115;&amp;#116;&amp;#x73;.&amp;#97;&amp;#108;i&amp;#x6f;t&amp;#104;&amp;#46;&amp;#x64;&amp;#x65;&amp;#98;&amp;#105;&amp;#x61;&amp;#110;&amp;#x2e;&amp;#x6f;&amp;#x72;&amp;#x67;&lt;/a&gt; 問也沒有回應 ...&lt;/p&gt;
+&lt;p&gt;寫信去 &lt;a href=&quot;mailto:&amp;#x70;&amp;#107;&amp;#x67;&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;&amp;#x69;&amp;#x6c;la&amp;#45;&amp;#109;&amp;#x61;&amp;#x69;&amp;#110;&amp;#116;a&amp;#x69;&amp;#110;&amp;#101;&amp;#114;&amp;#x73;&amp;#64;&amp;#x6c;&amp;#x69;s&amp;#x74;s&amp;#x2e;&amp;#x61;&amp;#x6c;i&amp;#x6f;&amp;#116;h.deb&amp;#105;&amp;#x61;&amp;#x6e;&amp;#x2e;&amp;#111;&amp;#x72;&amp;#x67;&quot;&gt;&amp;#x70;&amp;#107;&amp;#x67;&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;&amp;#x69;&amp;#x6c;la&amp;#45;&amp;#109;&amp;#x61;&amp;#x69;&amp;#110;&amp;#116;a&amp;#x69;&amp;#110;&amp;#101;&amp;#114;&amp;#x73;&amp;#64;&amp;#x6c;&amp;#x69;s&amp;#x74;s&amp;#x2e;&amp;#x61;&amp;#x6c;i&amp;#x6f;&amp;#116;h.deb&amp;#105;&amp;#x61;&amp;#x6e;&amp;#x2e;&amp;#111;&amp;#x72;&amp;#x67;&lt;/a&gt; 問也沒有回應 ...&lt;/p&gt;
 &lt;p&gt;所以 Firefox ESR 應該已經不支援 Jessie 了...&lt;/p&gt;
 	</description>
     </item>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Open NTP Daemon</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">Java Piece</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">RSS</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>Open NTP Daemon</h1>
+	</div>
+
+	<p><em>2017/12/9</em></p>
+
+	<p><ol>
+  <li>
+  <p>安裝環境<br/>Debain Jessie</p></li>
+  <li>
+  <p>先安裝 openntpd</p>
+  <pre><code>apt-get install openntpd
+</code></pre></li>
+  <li>
+    <p>若要使用國內的 NTP 伺服器，可修改 openntpd 的設定檔，並加入以下設定</p>
+    <pre><code>#將預設的國外 NTP 伺服器註解掉
+#servers 0.debian.pool.ntp.org
+#servers 1.debian.pool.ntp.org
+#servers 2.debian.pool.ntp.org
+#servers 3.debian.pool.ntp.org
+
+servers tock.stdtime.gov.tw
+servers time.stdtime.gov.tw
+servers clock.stdtime.gov.tw 
+servers tick.stdtime.gov.tw
+servers watch.stdtime.gov.tw
+</code></pre>
+  </li>
+  <li>
+    <p>安裝完後 openntpd 就會自動於 daemon 執行了，若要確認 openntpd 有正確運作，可使用以下指令</p>
+    <pre><code>systemctl status openntpd
+
+#執行結果如下，Active 為 running 代表有正確執行
+● openntpd.service - OpenNTPd Network Time Protocol
+   Loaded: loaded (/lib/systemd/system/openntpd.service; enabled)
+   Active: active (running) since Sat 2017-12-09 12:05:17 CST; 2h 41min ago
+  Process: 3715 ExecStart=/usr/sbin/ntpd $DAEMON_OPTS (code=exited, status=0/SUCCESS)
+  Process: 3712 ExecStartPre=/usr/sbin/ntpd -n $DAEMON_OPTS (code=exited, status=0/SUCCESS)
+ Main PID: 3717 (ntpd)
+   CGroup: /system.slice/openntpd.service
+           ├─3717 /usr/sbin/ntpd -f /etc/openntpd/ntpd.conf
+           ├─3718 ntpd: ntp engine
+           └─3719 ntpd: dns engine
+</code></pre>
+  </li>
+  <li>
+  <p>若要手動執行 openntpd，可使用以下指令</p>
+  <pre><code>ntpd -dsv
+</code></pre></li>
+</ol>
+<p>參考資料<br/>　　<a href="http://www.stdtime.gov.tw/Time/ntp/resource.htm">NTP 的網路資源</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%E6%96%B0%E5%A2%9E%E9%A0%BB%E5%AF%AC.txt">NTP 新增頻寬</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%20promo.txt">NTP 伺服器</a></p></p>
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>
