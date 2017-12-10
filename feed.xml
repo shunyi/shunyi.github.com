@@ -6,9 +6,35 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期六, 9 十二月 2017 15:27:47 +0800</pubDate>
-    <lastBuildDate>星期六, 9 十二月 2017 15:27:47 +0800</lastBuildDate>
+    <pubDate>星期日, 10 十二月 2017 20:18:08 +0800</pubDate>
+    <lastBuildDate>星期日, 10 十二月 2017 20:18:08 +0800</lastBuildDate>
 
+    <item>
+      <title>關於 volatile 關鍵字</title>
+      <link>http://shunyi.github.com/blog/2017/volatile.html</link>
+      <pubDate>星期日, 10 十二月 2017 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2017/volatile.html</guid>
+      	<description>
+	&lt;h3&gt;使用 volatile 的變數&lt;/h3&gt;
+&lt;hr/&gt;
+&lt;p&gt;簡單的解釋： &lt;strong&gt;在多執行緒的環境下，&lt;code&gt;volatile&lt;/code&gt; 用於讓變數的讀和寫都在記憶體中執行。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;因為每個執行緒都需將變數放在 CPU cache 才能做運算，所以要從記憶體中把所有可存取的變數複製一份副本到 CPU cache 以供運算時讀寫操作使用，此時就有可能因為某些運算造成 CPU cache 存的變數值和記憶體存的變數值不一致。&lt;code&gt;volatile&lt;/code&gt; 可以保證變數的讀寫操作都在記憶體中執行，以確保在多個執行緒都可以取到最新的變數值。&lt;/p&gt;
+&lt;p&gt;換個說法，每個執行緒都有自己的堆疊，所以它可以存取自己的變數副本。當執行緒被建立時，它將所有可存取的變數複製到自己的記憶體中。&lt;code&gt;volatile&lt;/code&gt; 關鍵字用於告訴 JVM 說：「注意，這個變數可以在其他執行緒中修改」。若沒有這個關鍵字，JVM 可以自由地進行一些最佳化，像是在某些執行緒中從不更新這些本地副本。&lt;code&gt;volatile&lt;/code&gt; 會強制執行緒更新每個變數的原始值。&lt;code&gt;volatile&lt;/code&gt; 關鍵字可以用在任何類型的變數，可以是 primitive 或 objects！&lt;/p&gt;
+&lt;h3&gt;未使用 volatile 的變數&lt;/h3&gt;
+&lt;hr/&gt;
+&lt;p&gt;對於非 &lt;code&gt;volatile&lt;/code&gt; 變數而言，JVM 並不能保證什麼時候把記憶體的變數值讀取到 CPU cache 中，以及何時把 CPU cache 的變數值寫入到記憶體中。&lt;/p&gt;
+&lt;p&gt;因此在多執行緒的環境下，有可能造成 Thread 1 將 counter 變數設為 7，但沒有馬上寫入到記憶體中，造成 Thread 2 取到 counter 之值仍為 0。&lt;br/&gt;&lt;img src=&quot;http://tutorials.jenkov.com/images/java-concurrency/java-volatile-2.png&quot; alt=&quot;java-volatile-2.png&quot; /&gt;&lt;br/&gt;&lt;a href=&quot;http://tutorials.jenkov.com/java-concurrency/volatile.html&quot;&gt;圖片來源&lt;/a&gt;&lt;/p&gt;
+&lt;h3&gt;效能&lt;/h3&gt;
+&lt;hr/&gt;
+&lt;p&gt;由於 &lt;code&gt;volatile&lt;/code&gt; 變數的讀寫都是在記憶體中執行，所以比直接在 CPU cache 做變數讀寫來得慢。&lt;br/&gt;不過比 &lt;code&gt;synchronized&lt;/code&gt; 快，因為 &lt;code&gt;synchronized&lt;/code&gt; 要等到寫資料的執行緒做完才能夠讀到資料。&lt;/p&gt;
+&lt;h3&gt;為何不使用 synchronized 關鍵字&lt;/h3&gt;
+&lt;hr/&gt;
+&lt;p&gt;除了效能比較慢之外，用 &lt;code&gt;synchronized&lt;/code&gt; 有一個風險是，若正在讀取變數的執行緒因為某些原因臨時被暫停 (suspended) 的話，其他正在等待寫入同一個變數的執行緒會 &lt;strong&gt;陷入無限的等待&lt;/strong&gt; 或 &lt;strong&gt;直到讀取變數的執行緒終於做完&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3&gt;參考資料&lt;/h3&gt;
+&lt;hr/&gt;
+&lt;p&gt;&lt;a href=&quot;https://dzone.com/articles/java-volatile-keyword-0&quot;&gt;Java Volatile Keyword Explained by Example&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;http://tutorials.jenkov.com/java-concurrency/volatile.html&quot;&gt;Java Volatile Keyword&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;http://lucumt.info/posts/java-concurrency/java-volatile-keyword/&quot;&gt;[译] Java Volatile 关键字详解&lt;/a&gt;&lt;/p&gt;
+	</description>
+    </item>
     <item>
       <title>Open NTP Daemon</title>
       <link>http://shunyi.github.com/blog/2017/openntpd.html</link>
@@ -243,7 +269,7 @@ text/html
 &lt;p&gt;但是照網頁上的指示，更新 /etc/apt/sources.list 並執行 apt-get 後，卻顯示錯誤訊息：&lt;/p&gt;
 &lt;p&gt;　　Package firefox-esr is not available, but is referred to by another package.&lt;br/&gt;　　This may mean that the package is missing, has been obsoleted, or&lt;br/&gt;　　is only available from another source&lt;/p&gt;
 &lt;p&gt;　　E: Package &apos;firefox-esr&apos; has no installation candidate&lt;/p&gt;
-&lt;p&gt;寫信去 &lt;a href=&quot;mailto:&amp;#x70;&amp;#107;&amp;#x67;&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;&amp;#x69;&amp;#x6c;la&amp;#45;&amp;#109;&amp;#x61;&amp;#x69;&amp;#110;&amp;#116;a&amp;#x69;&amp;#110;&amp;#101;&amp;#114;&amp;#x73;&amp;#64;&amp;#x6c;&amp;#x69;s&amp;#x74;s&amp;#x2e;&amp;#x61;&amp;#x6c;i&amp;#x6f;&amp;#116;h.deb&amp;#105;&amp;#x61;&amp;#x6e;&amp;#x2e;&amp;#111;&amp;#x72;&amp;#x67;&quot;&gt;&amp;#x70;&amp;#107;&amp;#x67;&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;&amp;#x69;&amp;#x6c;la&amp;#45;&amp;#109;&amp;#x61;&amp;#x69;&amp;#110;&amp;#116;a&amp;#x69;&amp;#110;&amp;#101;&amp;#114;&amp;#x73;&amp;#64;&amp;#x6c;&amp;#x69;s&amp;#x74;s&amp;#x2e;&amp;#x61;&amp;#x6c;i&amp;#x6f;&amp;#116;h.deb&amp;#105;&amp;#x61;&amp;#x6e;&amp;#x2e;&amp;#111;&amp;#x72;&amp;#x67;&lt;/a&gt; 問也沒有回應 ...&lt;/p&gt;
+&lt;p&gt;寫信去 &lt;a href=&quot;mailto:&amp;#x70;&amp;#x6b;g&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;i&amp;#x6c;&amp;#x6c;&amp;#97;&amp;#x2d;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6e;&amp;#x74;&amp;#97;&amp;#105;&amp;#110;e&amp;#x72;&amp;#115;&amp;#x40;l&amp;#x69;&amp;#x73;&amp;#116;&amp;#115;&amp;#46;&amp;#97;&amp;#x6c;&amp;#105;&amp;#x6f;&amp;#116;&amp;#x68;&amp;#46;d&amp;#x65;&amp;#98;&amp;#105;a&amp;#x6e;&amp;#x2e;&amp;#x6f;&amp;#114;&amp;#103;&quot;&gt;&amp;#x70;&amp;#x6b;g&amp;#x2d;&amp;#x6d;&amp;#x6f;&amp;#122;i&amp;#x6c;&amp;#x6c;&amp;#97;&amp;#x2d;&amp;#x6d;&amp;#97;&amp;#105;&amp;#x6e;&amp;#x74;&amp;#97;&amp;#105;&amp;#110;e&amp;#x72;&amp;#115;&amp;#x40;l&amp;#x69;&amp;#x73;&amp;#116;&amp;#115;&amp;#46;&amp;#97;&amp;#x6c;&amp;#105;&amp;#x6f;&amp;#116;&amp;#x68;&amp;#46;d&amp;#x65;&amp;#98;&amp;#105;a&amp;#x6e;&amp;#x2e;&amp;#x6f;&amp;#114;&amp;#103;&lt;/a&gt; 問也沒有回應 ...&lt;/p&gt;
 &lt;p&gt;所以 Firefox ESR 應該已經不支援 Jessie 了...&lt;/p&gt;
 	</description>
     </item>

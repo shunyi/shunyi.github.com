@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>關於 volatile 關鍵字</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">Java Piece</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">RSS</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>關於 volatile 關鍵字</h1>
+	</div>
+
+	<p><em>2017/12/10</em></p>
+
+	<p><h3>使用 volatile 的變數</h3>
+<hr/>
+<p>簡單的解釋： <strong>在多執行緒的環境下，<code>volatile</code> 用於讓變數的讀和寫都在記憶體中執行。</strong></p>
+<p>因為每個執行緒都需將變數放在 CPU cache 才能做運算，所以要從記憶體中把所有可存取的變數複製一份副本到 CPU cache 以供運算時讀寫操作使用，此時就有可能因為某些運算造成 CPU cache 存的變數值和記憶體存的變數值不一致。<code>volatile</code> 可以保證變數的讀寫操作都在記憶體中執行，以確保在多個執行緒都可以取到最新的變數值。</p>
+<p>換個說法，每個執行緒都有自己的堆疊，所以它可以存取自己的變數副本。當執行緒被建立時，它將所有可存取的變數複製到自己的記憶體中。<code>volatile</code> 關鍵字用於告訴 JVM 說：「注意，這個變數可以在其他執行緒中修改」。若沒有這個關鍵字，JVM 可以自由地進行一些最佳化，像是在某些執行緒中從不更新這些本地副本。<code>volatile</code> 會強制執行緒更新每個變數的原始值。<code>volatile</code> 關鍵字可以用在任何類型的變數，可以是 primitive 或 objects！</p>
+<h3>未使用 volatile 的變數</h3>
+<hr/>
+<p>對於非 <code>volatile</code> 變數而言，JVM 並不能保證什麼時候把記憶體的變數值讀取到 CPU cache 中，以及何時把 CPU cache 的變數值寫入到記憶體中。</p>
+<p>因此在多執行緒的環境下，有可能造成 Thread 1 將 counter 變數設為 7，但沒有馬上寫入到記憶體中，造成 Thread 2 取到 counter 之值仍為 0。<br/><img src="http://tutorials.jenkov.com/images/java-concurrency/java-volatile-2.png" alt="java-volatile-2.png" /><br/><a href="http://tutorials.jenkov.com/java-concurrency/volatile.html">圖片來源</a></p>
+<h3>效能</h3>
+<hr/>
+<p>由於 <code>volatile</code> 變數的讀寫都是在記憶體中執行，所以比直接在 CPU cache 做變數讀寫來得慢。<br/>不過比 <code>synchronized</code> 快，因為 <code>synchronized</code> 要等到寫資料的執行緒做完才能夠讀到資料。</p>
+<h3>為何不使用 synchronized 關鍵字</h3>
+<hr/>
+<p>除了效能比較慢之外，用 <code>synchronized</code> 有一個風險是，若正在讀取變數的執行緒因為某些原因臨時被暫停 (suspended) 的話，其他正在等待寫入同一個變數的執行緒會 <strong>陷入無限的等待</strong> 或 <strong>直到讀取變數的執行緒終於做完</strong>。</p>
+<h3>參考資料</h3>
+<hr/>
+<p><a href="https://dzone.com/articles/java-volatile-keyword-0">Java Volatile Keyword Explained by Example</a><br/><a href="http://tutorials.jenkov.com/java-concurrency/volatile.html">Java Volatile Keyword</a><br/><a href="http://lucumt.info/posts/java-concurrency/java-volatile-keyword/">[译] Java Volatile 关键字详解</a></p></p>
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>
