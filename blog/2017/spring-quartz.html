@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Spring 與 Quartz 版本對應</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">Java Piece</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">RSS</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>Spring 與 Quartz 版本對應</h1>
+	</div>
+
+	<p><em>2017/12/24</em></p>
+
+	<p><ol>
+  <li>
+    <p>若要在 Spring 中使用 Quartz v1.x 則使用以下設定 (JobDetailBean &amp; SimpleTriggerBean)</p>
+    <!--prettify-->
+    <pre><code>&lt;bean id=&quot;jobDetailBean&quot; class=&quot;org.springframework.scheduling.quartz.JobDetailBean&quot;&gt;
+    &lt;property name=&quot;jobClass&quot; value=&quot;idv.shunyi.mvc.QuartzTest&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;bean id=&quot;simpleTriggerBean&quot; class=&quot;org.springframework.scheduling.quartz.SimpleTriggerBean&quot;&gt;
+    &lt;property name=&quot;jobDetail&quot; ref=&quot;jobDetailBean&quot; /&gt;
+    &lt;property name=&quot;repeatInterval&quot; value=&quot;5000&quot; /&gt;
+    &lt;property name=&quot;startDelay&quot; value=&quot;1000&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>若要在 Spring (v3.1+) 中使用 Quartz v2.x 則使用以下設定 (JobDetail**Factory**Bean &amp; SimpleTrigger**Factory**Bean)</p>
+    <!--prettify-->
+    <pre><code>&lt;bean id=&quot;jobDetailBean&quot; class=&quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&quot;&gt;
+    &lt;property name=&quot;jobClass&quot; value=&quot;idv.shunyi.mvc.QuartzTest&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;bean id=&quot;simpleTriggerBean&quot; class=&quot;org.springframework.scheduling.quartz.SimpleTriggerFactoryBean&quot;&gt;
+    &lt;property name=&quot;jobDetail&quot; ref=&quot;jobDetailBean&quot; /&gt;
+    &lt;property name=&quot;repeatInterval&quot; value=&quot;5000&quot; /&gt;
+    &lt;property name=&quot;startDelay&quot; value=&quot;1000&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+  </li>
+  <li>
+  <p>參考資料<br/><a href="https://jira.spring.io/browse/SPR-8581">Spring should support Quartz 2.0 CronTrigger interface</a><br/><a href="https://www.mkyong.com/spring/incompatibleclasschangeerror-jobdetailbean-has-interface-org-quartz-jobdetail-as-super-class/">IncompatibleClassChangeError : JobDetailBean has interface org.quartz.JobDetail as super class</a><br/><a href="http://websystique.com/spring/spring-4-quartz-scheduler-integration-example/">Spring 4 + Quartz Scheduler Integration Example</a><br/><a href="https://docs.spring.io/spring/docs/3.1.1.RELEASE/javadoc-api/org/springframework/scheduling/quartz/JobDetailFactoryBean.html">JobDetailFactoryBean</a><br/><a href="https://docs.spring.io/spring/docs/3.1.1.RELEASE/javadoc-api/org/springframework/scheduling/quartz/SimpleTriggerFactoryBean.html">SimpleTriggerFactoryBean</a></p></li>
+</ol></p>
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>

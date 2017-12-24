@@ -54,6 +54,40 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="blog/2017/spring-quartz.html"><h1>Spring 與 Quartz 版本對應</h1></a>
+  			<p>24 十二月 2017</p>
+  			<p><ol>
+  <li>
+    <p>若要在 Spring 中使用 Quartz v1.x 則使用以下設定 (JobDetailBean &amp; SimpleTriggerBean)</p>
+    <!--prettify-->
+    <pre><code>&lt;bean id=&quot;jobDetailBean&quot; class=&quot;org.springframework.scheduling.quartz.JobDetailBean&quot;&gt;
+    &lt;property name=&quot;jobClass&quot; value=&quot;idv.shunyi.mvc.QuartzTest&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;bean id=&quot;simpleTriggerBean&quot; class=&quot;org.springframework.scheduling.quartz.SimpleTriggerBean&quot;&gt;
+    &lt;property name=&quot;jobDetail&quot; ref=&quot;jobDetailBean&quot; /&gt;
+    &lt;property name=&quot;repeatInterval&quot; value=&quot;5000&quot; /&gt;
+    &lt;property name=&quot;startDelay&quot; value=&quot;1000&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>若要在 Spring (v3.1+) 中使用 Quartz v2.x 則使用以下設定 (JobDetail**Factory**Bean &amp; SimpleTrigger**Factory**Bean)</p>
+    <!--prettify-->
+    <pre><code>&lt;bean id=&quot;jobDetailBean&quot; class=&quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&quot;&gt;
+    &lt;property name=&quot;jobClass&quot; value=&quot;idv.shunyi.mvc.QuartzTest&quot; /&gt;
+&lt;/bean&gt;
+
+&lt;bean id=&quot;simpleTriggerBean&quot; class=&quot;org.springframework.scheduling.quartz.SimpleTriggerFactoryBean&quot;&gt;
+    &lt;property name=&quot;jobDetail&quot; ref=&quot;jobDetailBean&quot; /&gt;
+    &lt;property name=&quot;repeatInterval&quot; value=&quot;5000&quot; /&gt;
+    &lt;property name=&quot;startDelay&quot; value=&quot;1000&quot; /&gt;
+&lt;/bean&gt;
+</code></pre>
+  </li>
+  <li>
+  <p>參考資料<br/><a href="https://jira.spring.io/browse/SPR-8581">Spring should support Quartz 2.0 CronTrigger interface</a><br/><a href="https://www.mkyong.com/spring/incompatibleclasschangeerror-jobdetailbean-has-interface-org-quartz-jobdetail-as-super-class/">IncompatibleClassChangeError : JobDetailBean has interface org.quartz.JobDetail as super class</a><br/><a href="http://websystique.com/spring/spring-4-quartz-scheduler-integration-example/">Spring 4 + Quartz Scheduler Integration Example</a><br/><a href="https://docs.spring.io/spring/docs/3.1.1.RELEASE/javadoc-api/org/springframework/scheduling/quartz/JobDetailFactoryBean.html">JobDetailFactoryBean</a><br/><a href="https://docs.spring.io/spring/docs/3.1.1.RELEASE/javadoc-api/org/springframework/scheduling/quartz/SimpleTriggerFactoryBean.html">SimpleTriggerFactoryBean</a></p></li>
+</ol></p>
   			<a href="blog/2017/volatile.html"><h1>關於 volatile 關鍵字</h1></a>
   			<p>10 十二月 2017</p>
   			<p><h3>使用 volatile 的變數</h3>
@@ -286,7 +320,7 @@ text/html
 <p>但是照網頁上的指示，更新 /etc/apt/sources.list 並執行 apt-get 後，卻顯示錯誤訊息：</p>
 <p>　　Package firefox-esr is not available, but is referred to by another package.<br/>　　This may mean that the package is missing, has been obsoleted, or<br/>　　is only available from another source</p>
 <p>　　E: Package 'firefox-esr' has no installation candidate</p>
-<p>寫信去 <a href="mailto:&#x70;&#x6b;g&#x2d;&#x6d;&#x6f;&#122;i&#x6c;&#x6c;&#97;&#x2d;&#x6d;&#97;&#105;&#x6e;&#x74;&#97;&#105;&#110;e&#x72;&#115;&#x40;l&#x69;&#x73;&#116;&#115;&#46;&#97;&#x6c;&#105;&#x6f;&#116;&#x68;&#46;d&#x65;&#98;&#105;a&#x6e;&#x2e;&#x6f;&#114;&#103;">&#x70;&#x6b;g&#x2d;&#x6d;&#x6f;&#122;i&#x6c;&#x6c;&#97;&#x2d;&#x6d;&#97;&#105;&#x6e;&#x74;&#97;&#105;&#110;e&#x72;&#115;&#x40;l&#x69;&#x73;&#116;&#115;&#46;&#97;&#x6c;&#105;&#x6f;&#116;&#x68;&#46;d&#x65;&#98;&#105;a&#x6e;&#x2e;&#x6f;&#114;&#103;</a> 問也沒有回應 ...</p>
+<p>寫信去 <a href="mailto:&#x70;&#x6b;g&#x2d;&#109;&#111;&#122;&#105;&#x6c;&#108;a&#x2d;&#x6d;ai&#x6e;&#x74;a&#x69;&#x6e;e&#114;&#115;&#64;&#108;&#105;&#x73;&#116;&#115;&#46;&#97;&#108;&#x69;&#111;&#x74;&#104;&#46;&#100;e&#x62;&#x69;&#97;&#x6e;&#x2e;&#111;&#114;&#x67;">&#x70;&#x6b;g&#x2d;&#109;&#111;&#122;&#105;&#x6c;&#108;a&#x2d;&#x6d;ai&#x6e;&#x74;a&#x69;&#x6e;e&#114;&#115;&#64;&#108;&#105;&#x73;&#116;&#115;&#46;&#97;&#108;&#x69;&#111;&#x74;&#104;&#46;&#100;e&#x62;&#x69;&#97;&#x6e;&#x2e;&#111;&#114;&#x67;</a> 問也沒有回應 ...</p>
 <p>所以 Firefox ESR 應該已經不支援 Jessie 了...</p></p>
   			<a href="blog/2017/jbake-2.5.1.html"><h1>JBake v2.5.1 安裝</h1></a>
   			<p>14 十月 2017</p>

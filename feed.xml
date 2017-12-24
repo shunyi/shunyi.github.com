@@ -6,9 +6,49 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期日, 10 十二月 2017 20:18:08 +0800</pubDate>
-    <lastBuildDate>星期日, 10 十二月 2017 20:18:08 +0800</lastBuildDate>
+    <pubDate>星期日, 24 十二月 2017 15:18:04 +0800</pubDate>
+    <lastBuildDate>星期日, 24 十二月 2017 15:18:04 +0800</lastBuildDate>
 
+    <item>
+      <title>Spring 與 Quartz 版本對應</title>
+      <link>http://shunyi.github.com/blog/2017/spring-quartz.html</link>
+      <pubDate>星期日, 24 十二月 2017 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2017/spring-quartz.html</guid>
+      	<description>
+	&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;若要在 Spring 中使用 Quartz v1.x 則使用以下設定 (JobDetailBean &amp;amp; SimpleTriggerBean)&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;bean id=&amp;quot;jobDetailBean&amp;quot; class=&amp;quot;org.springframework.scheduling.quartz.JobDetailBean&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;jobClass&amp;quot; value=&amp;quot;idv.shunyi.mvc.QuartzTest&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+
+&amp;lt;bean id=&amp;quot;simpleTriggerBean&amp;quot; class=&amp;quot;org.springframework.scheduling.quartz.SimpleTriggerBean&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;jobDetail&amp;quot; ref=&amp;quot;jobDetailBean&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;repeatInterval&amp;quot; value=&amp;quot;5000&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;startDelay&amp;quot; value=&amp;quot;1000&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;若要在 Spring (v3.1+) 中使用 Quartz v2.x 則使用以下設定 (JobDetail**Factory**Bean &amp;amp; SimpleTrigger**Factory**Bean)&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;bean id=&amp;quot;jobDetailBean&amp;quot; class=&amp;quot;org.springframework.scheduling.quartz.JobDetailFactoryBean&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;jobClass&amp;quot; value=&amp;quot;idv.shunyi.mvc.QuartzTest&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+
+&amp;lt;bean id=&amp;quot;simpleTriggerBean&amp;quot; class=&amp;quot;org.springframework.scheduling.quartz.SimpleTriggerFactoryBean&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;jobDetail&amp;quot; ref=&amp;quot;jobDetailBean&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;repeatInterval&amp;quot; value=&amp;quot;5000&amp;quot; /&amp;gt;
+    &amp;lt;property name=&amp;quot;startDelay&amp;quot; value=&amp;quot;1000&amp;quot; /&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;參考資料&lt;br/&gt;&lt;a href=&quot;https://jira.spring.io/browse/SPR-8581&quot;&gt;Spring should support Quartz 2.0 CronTrigger interface&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;https://www.mkyong.com/spring/incompatibleclasschangeerror-jobdetailbean-has-interface-org-quartz-jobdetail-as-super-class/&quot;&gt;IncompatibleClassChangeError : JobDetailBean has interface org.quartz.JobDetail as super class&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;http://websystique.com/spring/spring-4-quartz-scheduler-integration-example/&quot;&gt;Spring 4 + Quartz Scheduler Integration Example&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;https://docs.spring.io/spring/docs/3.1.1.RELEASE/javadoc-api/org/springframework/scheduling/quartz/JobDetailFactoryBean.html&quot;&gt;JobDetailFactoryBean&lt;/a&gt;&lt;br/&gt;&lt;a href=&quot;https://docs.spring.io/spring/docs/3.1.1.RELEASE/javadoc-api/org/springframework/scheduling/quartz/SimpleTriggerFactoryBean.html&quot;&gt;SimpleTriggerFactoryBean&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+	</description>
+    </item>
     <item>
       <title>關於 volatile 關鍵字</title>
       <link>http://shunyi.github.com/blog/2017/volatile.html</link>
