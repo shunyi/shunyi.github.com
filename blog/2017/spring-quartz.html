@@ -87,6 +87,24 @@
 </code></pre>
   </li>
   <li>
+    <p>若設定錯誤可能會看到以下 Exception (quartz-2.0.0.jar，卻使用 <code>項目 1.</code> 的設定) </p>
+    <!--prettify-->
+    <pre><code>Caused by: java.lang.IncompatibleClassChangeError: class org.springframework.scheduling.quartz.JobDetailBean has interface org.quartz.JobDetail as super class
+    at java.lang.ClassLoader.defineClass1(Native Method)
+    at java.lang.ClassLoader.defineClass(ClassLoader.java:800)
+    at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+    at org.apache.catalina.loader.WebappClassLoaderBase.findClassInternal(WebappClassLoaderBase.java:2474)
+    at org.apache.catalina.loader.WebappClassLoaderBase.findClass(WebappClassLoaderBase.java:855)
+    at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1304)
+    at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1163)
+    at org.springframework.util.ClassUtils.forName(ClassUtils.java:258)
+    at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:417)
+    at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1283)
+    at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1254)
+    ... 18 more
+</code></pre>
+  </li>
+  <li>
   <p>參考資料<br/><a href="https://jira.spring.io/browse/SPR-8581">Spring should support Quartz 2.0 CronTrigger interface</a><br/><a href="https://www.mkyong.com/spring/incompatibleclasschangeerror-jobdetailbean-has-interface-org-quartz-jobdetail-as-super-class/">IncompatibleClassChangeError : JobDetailBean has interface org.quartz.JobDetail as super class</a><br/><a href="http://websystique.com/spring/spring-4-quartz-scheduler-integration-example/">Spring 4 + Quartz Scheduler Integration Example</a><br/><a href="https://docs.spring.io/spring/docs/3.1.1.RELEASE/javadoc-api/org/springframework/scheduling/quartz/JobDetailFactoryBean.html">JobDetailFactoryBean</a><br/><a href="https://docs.spring.io/spring/docs/3.1.1.RELEASE/javadoc-api/org/springframework/scheduling/quartz/SimpleTriggerFactoryBean.html">SimpleTriggerFactoryBean</a></p></li>
 </ol></p>
 

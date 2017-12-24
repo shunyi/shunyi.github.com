@@ -6,8 +6,8 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期日, 24 十二月 2017 15:18:04 +0800</pubDate>
-    <lastBuildDate>星期日, 24 十二月 2017 15:18:04 +0800</lastBuildDate>
+    <pubDate>星期日, 24 十二月 2017 15:36:48 +0800</pubDate>
+    <lastBuildDate>星期日, 24 十二月 2017 15:36:48 +0800</lastBuildDate>
 
     <item>
       <title>Spring 與 Quartz 版本對應</title>
@@ -42,6 +42,24 @@
     &amp;lt;property name=&amp;quot;repeatInterval&amp;quot; value=&amp;quot;5000&amp;quot; /&amp;gt;
     &amp;lt;property name=&amp;quot;startDelay&amp;quot; value=&amp;quot;1000&amp;quot; /&amp;gt;
 &amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;若設定錯誤可能會看到以下 Exception (quartz-2.0.0.jar，卻使用 &lt;code&gt;項目 1.&lt;/code&gt; 的設定) &lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;Caused by: java.lang.IncompatibleClassChangeError: class org.springframework.scheduling.quartz.JobDetailBean has interface org.quartz.JobDetail as super class
+    at java.lang.ClassLoader.defineClass1(Native Method)
+    at java.lang.ClassLoader.defineClass(ClassLoader.java:800)
+    at java.security.SecureClassLoader.defineClass(SecureClassLoader.java:142)
+    at org.apache.catalina.loader.WebappClassLoaderBase.findClassInternal(WebappClassLoaderBase.java:2474)
+    at org.apache.catalina.loader.WebappClassLoaderBase.findClass(WebappClassLoaderBase.java:855)
+    at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1304)
+    at org.apache.catalina.loader.WebappClassLoaderBase.loadClass(WebappClassLoaderBase.java:1163)
+    at org.springframework.util.ClassUtils.forName(ClassUtils.java:258)
+    at org.springframework.beans.factory.support.AbstractBeanDefinition.resolveBeanClass(AbstractBeanDefinition.java:417)
+    at org.springframework.beans.factory.support.AbstractBeanFactory.doResolveBeanClass(AbstractBeanFactory.java:1283)
+    at org.springframework.beans.factory.support.AbstractBeanFactory.resolveBeanClass(AbstractBeanFactory.java:1254)
+    ... 18 more
 &lt;/code&gt;&lt;/pre&gt;
   &lt;/li&gt;
   &lt;li&gt;
