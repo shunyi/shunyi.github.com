@@ -6,9 +6,122 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期日, 24 十二月 2017 15:36:48 +0800</pubDate>
-    <lastBuildDate>星期日, 24 十二月 2017 15:36:48 +0800</lastBuildDate>
+    <pubDate>星期日, 25 二月 2018 12:39:56 +0800</pubDate>
+    <lastBuildDate>星期日, 25 二月 2018 12:39:56 +0800</lastBuildDate>
 
+    <item>
+      <title>Spring MVC 取得 JSON Object</title>
+      <link>http://shunyi.github.com/blog/2017/spring-mvc-json.html</link>
+      <pubDate>星期日, 25 二月 2018 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2017/spring-mvc-json.html</guid>
+      	<description>
+	&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;系統環境&lt;/p&gt;
+    &lt;ul&gt;
+      &lt;li&gt;Spring Framework v4.3.14.RELEASE&lt;/li&gt;
+      &lt;li&gt;Tomcat 8.0.48&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 pom.xml 加入以下設定&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jackson-core&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.8.11&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&amp;lt;dependency&amp;gt;
+    &amp;lt;groupId&amp;gt;com.fasterxml.jackson.core&amp;lt;/groupId&amp;gt;
+    &amp;lt;artifactId&amp;gt;jackson-databind&amp;lt;/artifactId&amp;gt;
+    &amp;lt;version&amp;gt;2.8.11&amp;lt;/version&amp;gt;
+&amp;lt;/dependency&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 web-context.xml 加入以下設定&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;bean id=&amp;quot;messageAdapter&amp;quot; class=&amp;quot;org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter&amp;quot;&amp;gt;
+    &amp;lt;property name=&amp;quot;messageConverters&amp;quot;&amp;gt;
+        &amp;lt;list&amp;gt;
+            &amp;lt;bean class=&amp;quot;org.springframework.http.converter.json.MappingJackson2HttpMessageConverter&amp;quot; /&amp;gt;
+        &amp;lt;/list&amp;gt;
+    &amp;lt;/property&amp;gt;
+&amp;lt;/bean&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;加入一個 JSON Object &lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;package idv.shunyi.entity;
+
+public class JarFile {
+
+    private long id;
+    private String fileName;
+    private String fileType;
+    private String mainClass;
+
+    public long getId() {
+       return id;
+    }
+    public void setId(long id) {
+       this.id = id;
+    }
+    public String getFileName() {
+       return fileName;
+    }
+    public void setFileName(String fileName) {
+       this.fileName = fileName;
+    }
+    public String getFileType() {
+       return fileType;
+    }
+    public void setFileType(String fileType) {
+       this.fileType = fileType;
+    }
+    public String getMainClass() {
+       return mainClass;
+    }
+    public void setMainClass(String mainClass) {
+       this.mainClass = mainClass;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Controller 寫法如下：&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;@RequestMapping(value = &amp;quot;/testJsonObject.do&amp;quot;, produces = &amp;quot;text/html; charset=UTF-8&amp;quot;)
+@ResponseBody
+public String param(@RequestBody JarFile jarFile) {
+    String value = jarFile.getFileName();
+    System.out.println(value);
+    return value;
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Client 端寫法如下 (e.g. JQuery ajax)：&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;function test() {
+    $.ajax({
+       method : &amp;#39;post&amp;#39;,
+       url: &amp;#39;testJsonObject.do&amp;#39;,
+       data: JSON.stringify({ id: &amp;#39;0&amp;#39;, fileName: &amp;#39;test-中文檔名.jar&amp;#39;, fileType: &amp;#39;jar&amp;#39;, mainClass: &amp;#39;idv.shunyi.entity.JarFile&amp;#39;}),
+       contentType:&amp;#39;application/json; charset=UTF-8&amp;#39;,
+       success: function(data) {
+         alert(data);
+       }
+    });
+};
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;Reference&lt;br/&gt;&lt;a href=&quot;https://stackoverflow.com/a/22761476&quot;&gt;Passing JSON Map into Spring MVC Controller&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+	</description>
+    </item>
     <item>
       <title>Spring 與 Quartz 版本對應</title>
       <link>http://shunyi.github.com/blog/2017/spring-quartz.html</link>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8"/>
+    <title>Spring MVC 取得 JSON Object</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="generator" content="JBake">
+
+    <!-- Le styles -->
+    <link href="../../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/base.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+  </head>
+  <body onload="prettyPrint()">
+    <div id="wrap">
+	
+	<!-- Fixed navbar -->
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="../../">Java Piece</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="../../index.html">Home</a></li>
+            <li><a href="../../about.html">About</a></li>
+            <li><a href="../../feed.xml">RSS</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+    <div class="container">	
+	<div class="page-header">
+		<h1>Spring MVC 取得 JSON Object</h1>
+	</div>
+
+	<p><em>2018/2/25</em></p>
+
+	<p><ol>
+  <li>
+    <p>系統環境</p>
+    <ul>
+      <li>Spring Framework v4.3.14.RELEASE</li>
+      <li>Tomcat 8.0.48</li>
+    </ul>
+  </li>
+  <li>
+    <p>在 pom.xml 加入以下設定</p>
+    <!--prettify-->
+    <pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-core&lt;/artifactId&gt;
+    &lt;version&gt;2.8.11&lt;/version&gt;
+&lt;/dependency&gt;
+&lt;dependency&gt;
+    &lt;groupId&gt;com.fasterxml.jackson.core&lt;/groupId&gt;
+    &lt;artifactId&gt;jackson-databind&lt;/artifactId&gt;
+    &lt;version&gt;2.8.11&lt;/version&gt;
+&lt;/dependency&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>在 web-context.xml 加入以下設定</p>
+    <!--prettify-->
+    <pre><code>&lt;bean id=&quot;messageAdapter&quot; class=&quot;org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter&quot;&gt;
+    &lt;property name=&quot;messageConverters&quot;&gt;
+        &lt;list&gt;
+            &lt;bean class=&quot;org.springframework.http.converter.json.MappingJackson2HttpMessageConverter&quot; /&gt;
+        &lt;/list&gt;
+    &lt;/property&gt;
+&lt;/bean&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>加入一個 JSON Object </p>
+    <!--prettify-->
+    <pre><code>package idv.shunyi.entity;
+
+public class JarFile {
+
+    private long id;
+    private String fileName;
+    private String fileType;
+    private String mainClass;
+
+    public long getId() {
+       return id;
+    }
+    public void setId(long id) {
+       this.id = id;
+    }
+    public String getFileName() {
+       return fileName;
+    }
+    public void setFileName(String fileName) {
+       this.fileName = fileName;
+    }
+    public String getFileType() {
+       return fileType;
+    }
+    public void setFileType(String fileType) {
+       this.fileType = fileType;
+    }
+    public String getMainClass() {
+       return mainClass;
+    }
+    public void setMainClass(String mainClass) {
+       this.mainClass = mainClass;
+    }
+}
+</code></pre>
+  </li>
+  <li>
+    <p>Controller 寫法如下：</p>
+    <!--prettify-->
+    <pre><code>@RequestMapping(value = &quot;/testJsonObject.do&quot;, produces = &quot;text/html; charset=UTF-8&quot;)
+@ResponseBody
+public String param(@RequestBody JarFile jarFile) {
+    String value = jarFile.getFileName();
+    System.out.println(value);
+    return value;
+}
+</code></pre>
+  </li>
+  <li>
+    <p>Client 端寫法如下 (e.g. JQuery ajax)：</p>
+    <!--prettify-->
+    <pre><code>function test() {
+    $.ajax({
+       method : &#39;post&#39;,
+       url: &#39;testJsonObject.do&#39;,
+       data: JSON.stringify({ id: &#39;0&#39;, fileName: &#39;test-中文檔名.jar&#39;, fileType: &#39;jar&#39;, mainClass: &#39;idv.shunyi.entity.JarFile&#39;}),
+       contentType:&#39;application/json; charset=UTF-8&#39;,
+       success: function(data) {
+         alert(data);
+       }
+    });
+};
+</code></pre>
+  </li>
+  <li>
+  <p>Reference<br/><a href="https://stackoverflow.com/a/22761476">Passing JSON Map into Spring MVC Controller</a></p></li>
+</ol></p>
+
+	<hr />
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="muted credit">&copy; 2014 | Mixed with <a href="http://getbootstrap.com/">Bootstrap v3.1.1</a> | Baked with <a href="http://jbake.org">JBake v2.5.1</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="../../js/jquery-1.11.1.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../../js/prettify.js"></script>
+    
+  </body>
+</html>
