@@ -6,9 +6,54 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期日, 25 二月 2018 12:39:56 +0800</pubDate>
-    <lastBuildDate>星期日, 25 二月 2018 12:39:56 +0800</lastBuildDate>
+    <pubDate>星期日, 17 六月 2018 12:38:15 +0800</pubDate>
+    <lastBuildDate>星期日, 17 六月 2018 12:38:15 +0800</lastBuildDate>
 
+    <item>
+      <title>變異測試工具 - Pitest Quick Start</title>
+      <link>http://shunyi.github.com/blog/2018/pitest.html</link>
+      <pubDate>星期日, 17 六月 2018 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2018/pitest.html</guid>
+      	<description>
+	&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 pom.xml 中加入 pitest (目前最新版本是 &lt;a href=&quot;https://mvnrepository.com/artifact/org.pitest/pitest&quot;&gt;v1.4.0&lt;/a&gt;)&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;plugins&amp;gt;
+    &amp;lt;plugin&amp;gt;
+       &amp;lt;groupId&amp;gt;org.pitest&amp;lt;/groupId&amp;gt;
+       &amp;lt;artifactId&amp;gt;pitest-maven&amp;lt;/artifactId&amp;gt;
+       &amp;lt;version&amp;gt;1.4.0&amp;lt;/version&amp;gt;
+    &amp;lt;/plugin&amp;gt;
+&amp;lt;/plugins&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;1.1 若出現以下錯誤訊息：&lt;/p&gt;
+    &lt;pre&gt;&lt;code&gt;上午 11:31:24 PIT &amp;gt;&amp;gt; SEVERE : Error generating coverage. Please check that your classpath contains JUnit 4.6 or above.
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;1.2 請在 pom.xml 中加入以下設定：(pitest 需要使用到 JUnit v4.6+)&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;dependencies&amp;gt;
+    &amp;lt;dependency&amp;gt;
+       &amp;lt;groupId&amp;gt;junit&amp;lt;/groupId&amp;gt;
+       &amp;lt;artifactId&amp;gt;junit&amp;lt;/artifactId&amp;gt;
+       &amp;lt;version&amp;gt;4.12&amp;lt;/version&amp;gt;
+       &amp;lt;scope&amp;gt;test&amp;lt;/scope&amp;gt;
+    &amp;lt;/dependency&amp;gt;
+&amp;lt;/dependencies&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;執行 &lt;code&gt;mvn org.pitest:pitest-maven:mutationCoverage&lt;/code&gt;&lt;/p&gt;&lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;測試的結果會產生到 target/pit-reports/ 目錄中&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;參考資料&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;http://pitest.org/quickstart/maven/&quot;&gt;Pitest - Maven Quick Start&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://medium.com/@loverjersey/%E8%AE%8A%E7%95%B0%E6%B8%AC%E8%A9%A6-mutation-test-%E4%B8%80%E7%A8%AE%E6%8F%90%E9%AB%98%E6%B8%AC%E8%A9%A6%E5%92%8C%E4%BB%A3%E7%A2%BC%E8%B3%AA%E9%87%8F%E7%9A%84-%E6%96%B0-%E6%96%B9%E6%B3%95%E9%80%9F%E8%A8%98-35bde79a5c7a&quot;&gt;變異測試 (Mutation Test) — 一種提高測試和代碼質量的 ”新” 方法速記&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+	</description>
+    </item>
     <item>
       <title>Spring MVC 取得 JSON Object</title>
       <link>http://shunyi.github.com/blog/2017/spring-mvc-json.html</link>

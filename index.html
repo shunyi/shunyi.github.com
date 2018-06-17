@@ -54,6 +54,45 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="blog/2018/pitest.html"><h1>變異測試工具 - Pitest Quick Start</h1></a>
+  			<p>17 六月 2018</p>
+  			<p><ol>
+  <li>
+    <p>在 pom.xml 中加入 pitest (目前最新版本是 <a href="https://mvnrepository.com/artifact/org.pitest/pitest">v1.4.0</a>)</p>
+    <!--prettify-->
+    <pre><code>&lt;plugins&gt;
+    &lt;plugin&gt;
+       &lt;groupId&gt;org.pitest&lt;/groupId&gt;
+       &lt;artifactId&gt;pitest-maven&lt;/artifactId&gt;
+       &lt;version&gt;1.4.0&lt;/version&gt;
+    &lt;/plugin&gt;
+&lt;/plugins&gt;
+</code></pre>
+    <p>1.1 若出現以下錯誤訊息：</p>
+    <pre><code>上午 11:31:24 PIT &gt;&gt; SEVERE : Error generating coverage. Please check that your classpath contains JUnit 4.6 or above.
+</code></pre>
+    <p>1.2 請在 pom.xml 中加入以下設定：(pitest 需要使用到 JUnit v4.6+)</p>
+    <!--prettify-->
+    <pre><code>&lt;dependencies&gt;
+    &lt;dependency&gt;
+       &lt;groupId&gt;junit&lt;/groupId&gt;
+       &lt;artifactId&gt;junit&lt;/artifactId&gt;
+       &lt;version&gt;4.12&lt;/version&gt;
+       &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;
+</code></pre>
+  </li>
+  <li>
+  <p>執行 <code>mvn org.pitest:pitest-maven:mutationCoverage</code></p></li>
+  <li>
+  <p>測試的結果會產生到 target/pit-reports/ 目錄中</p></li>
+</ol>
+<h3>參考資料</h3>
+<ul>
+  <li><a href="http://pitest.org/quickstart/maven/">Pitest - Maven Quick Start</a></li>
+  <li><a href="https://medium.com/@loverjersey/%E8%AE%8A%E7%95%B0%E6%B8%AC%E8%A9%A6-mutation-test-%E4%B8%80%E7%A8%AE%E6%8F%90%E9%AB%98%E6%B8%AC%E8%A9%A6%E5%92%8C%E4%BB%A3%E7%A2%BC%E8%B3%AA%E9%87%8F%E7%9A%84-%E6%96%B0-%E6%96%B9%E6%B3%95%E9%80%9F%E8%A8%98-35bde79a5c7a">變異測試 (Mutation Test) — 一種提高測試和代碼質量的 ”新” 方法速記</a></li>
+</ul></p>
   			<a href="blog/2017/spring-mvc-json.html"><h1>Spring MVC 取得 JSON Object</h1></a>
   			<p>25 二月 2018</p>
   			<p><ol>
