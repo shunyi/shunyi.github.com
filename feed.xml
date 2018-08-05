@@ -6,9 +6,102 @@
     <atom:link href="http://shunyi.github.com/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>星期日, 17 六月 2018 12:38:15 +0800</pubDate>
-    <lastBuildDate>星期日, 17 六月 2018 12:38:15 +0800</lastBuildDate>
+    <pubDate>星期日, 5 八月 2018 14:15:43 +0800</pubDate>
+    <lastBuildDate>星期日, 5 八月 2018 14:15:43 +0800</lastBuildDate>
 
+    <item>
+      <title>Spring MVC 加入 HTTP Cache 機制</title>
+      <link>http://shunyi.github.com/blog/2018/spring-resource-versioning.html</link>
+      <pubDate>星期日, 15 七月 2018 00:00:00 +0800</pubDate>
+      <guid isPermaLink="false">blog/2018/spring-resource-versioning.html</guid>
+      	<description>
+	&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;先建立 Java Config 檔案&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;@Configuration
+@EnableWebMvc
+public class MvcConfig extends WebMvcConfigurerAdapter {
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+       registry.addResourceHandler(&amp;quot;/resources/**&amp;quot;)
+          .addResourceLocations(&amp;quot;/resources/&amp;quot;)
+          .setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS))
+          .resourceChain(false)
+          .addResolver(new VersionResourceResolver().addContentVersionStrategy(&amp;quot;/**&amp;quot;));
+    }
+
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;1.1 若使用了 &lt;code&gt;@EnableWebMvc&lt;/code&gt;，就不能在 XML 中使用 &lt;code&gt;&amp;lt;annotation-driven /&amp;gt;&lt;/code&gt; (&lt;a href=&quot;https://stackoverflow.com/a/28150788&quot;&gt;參考&lt;/a&gt;)&lt;br/&gt;1.2 WebMvcConfigurerAdapter 只能在 &lt;code&gt;@EnableWebMvc&lt;/code&gt; 中使用 (參考同上)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 JSP 中改用以下方式來指定靜態檔案路徑&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;script type=&amp;quot;text/javascript&amp;quot; src=&amp;quot;&amp;lt;c:url value=&amp;quot;/resources/js/cache.js&amp;quot; /&amp;gt;&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;2.1 其中 &lt;code&gt;/resources/js/cache.js&lt;/code&gt; &lt;strong&gt;必須以 &lt;code&gt;/&lt;/code&gt; 作為開頭&lt;/strong&gt;，才能正確轉換成 &lt;code&gt;/${contextPath}/resources/js/cache-d347bec25f38177ca4e18844b11f1d42.js&lt;/code&gt;&lt;br/&gt;2.2 推測這麼做的可能原因是同一個 .jsp 檔案有可能被不同的 @RequestMapping 所使用，因此 requestURI() 也會有所不同，故需以 &lt;code&gt;/&lt;/code&gt; 確定其參考到的靜態檔案的路徑是正確的&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 web.xml 加入以下設定：&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;filter&amp;gt;
+    &amp;lt;filter-name&amp;gt;resourceUrlEncodingFilter&amp;lt;/filter-name&amp;gt;
+    &amp;lt;filter-class&amp;gt;
+       org.springframework.web.servlet.resource.ResourceUrlEncodingFilter
+    &amp;lt;/filter-class&amp;gt;
+&amp;lt;/filter&amp;gt;
+&amp;lt;filter-mapping&amp;gt;
+    &amp;lt;filter-name&amp;gt;resourceUrlEncodingFilter&amp;lt;/filter-name&amp;gt;
+    &amp;lt;servlet-name&amp;gt;appServlet&amp;lt;/servlet-name&amp;gt;
+&amp;lt;/filter-mapping&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;3.1 其中 &lt;code&gt;&amp;lt;servlet-name&amp;gt;&lt;/code&gt; 應設為 org.springframework.web.servlet.DispatcherServlet 所使用的 servlet name (&lt;a href=&quot;https://stackoverflow.com/a/11662070&quot;&gt;參考&lt;/a&gt;)&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;在 Spring 的 xml 設定檔中加入：&lt;/p&gt;
+    &lt;!--prettify--&gt;
+    &lt;pre&gt;&lt;code&gt;&amp;lt;beans xmlns=&amp;quot;http://www.springframework.org/schema/beans&amp;quot; ... &amp;gt;
+    ...
+    &amp;lt;context:component-scan base-package=&amp;quot;idv.shunyi.config&amp;quot; /&amp;gt; &amp;lt;!-- MvcConfig.java 所在的 package --&amp;gt;
+    ...
+&amp;lt;/beans&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;若要在 CSS 中 import 其他 CSS&lt;/p&gt;
+    &lt;!-- prettify --&gt;
+    &lt;pre&gt;&lt;code&gt;@import &amp;quot;cache.css&amp;quot;;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;p&gt;5.1 則需改寫 addResourceHandler()&lt;/p&gt;
+    &lt;!-- prettify --&gt;
+    &lt;pre&gt;&lt;code&gt;@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    ...
+
+    registry.addResourceHandler(&amp;quot;/resources/css/**&amp;quot;)
+           .addResourceLocations(&amp;quot;/resources/css/&amp;quot;)
+           .setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS))
+           .resourceChain(false)
+           .addResolver(new VersionResourceResolver().addContentVersionStrategy(&amp;quot;/**&amp;quot;))
+           .addTransformer(new CssLinkResourceTransformer());
+}
+&lt;/code&gt;&lt;/pre&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3&gt;參考資料&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/arpitaggarwal/spring-resource-versioning&quot;&gt;arpitaggarwal/spring-resource-versioning (GitHub)&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.baeldung.com/cachable-static-assets-with-spring-mvc&quot;&gt;Cachable Static Assets with Spring MVC&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://kaif.io/z/programming/debates/IipLjnAD5F&quot;&gt;循序漸進理解 HTTP Cache 機制 | TechBridge 技術共筆部落格&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/a/28150788&quot;&gt;Can not understand difference in behavior between : @EnableWebMvc and &lt;annotation-driven /&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://stackoverflow.com/a/11662070&quot;&gt;&lt;servlet-name&gt; inside &lt;filter-mapping&gt; of web.xml, what does this mean?&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://blog.coding.net/blog/spring-static-resource-process&quot;&gt;深入 Spring 系列之静态资源处理&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+	</description>
+    </item>
     <item>
       <title>變異測試工具 - Pitest Quick Start</title>
       <link>http://shunyi.github.com/blog/2018/pitest.html</link>
@@ -300,8 +393,10 @@ servers watch.stdtime.gov.tw
   &lt;p&gt;若要手動執行 openntpd，可使用以下指令&lt;/p&gt;
   &lt;pre&gt;&lt;code&gt;ntpd -dsv
 &lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
+  &lt;li&gt;
+  &lt;p&gt;若是出現錯誤訊息：&lt;code&gt;debian ntpd[29354]: adjtime failed: Invalid argument&lt;/code&gt;，則要在 /etc/default/openntpd 中加入 DAEMON_OPTS=&quot;-s&quot;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;參考資料&lt;br/&gt;　　&lt;a href=&quot;http://www.stdtime.gov.tw/Time/ntp/resource.htm&quot;&gt;NTP 的網路資源&lt;/a&gt;&lt;br/&gt;　　&lt;a href=&quot;http://www.stdtime.gov.tw/chinese/bulletin/NTP%E6%96%B0%E5%A2%9E%E9%A0%BB%E5%AF%AC.txt&quot;&gt;NTP 新增頻寬&lt;/a&gt;&lt;br/&gt;　　&lt;a href=&quot;http://www.stdtime.gov.tw/chinese/bulletin/NTP%20promo.txt&quot;&gt;NTP 伺服器&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;參考資料&lt;br/&gt;　　&lt;a href=&quot;http://www.stdtime.gov.tw/Time/ntp/resource.htm&quot;&gt;NTP 的網路資源&lt;/a&gt;&lt;br/&gt;　　&lt;a href=&quot;http://www.stdtime.gov.tw/chinese/bulletin/NTP%E6%96%B0%E5%A2%9E%E9%A0%BB%E5%AF%AC.txt&quot;&gt;NTP 新增頻寬&lt;/a&gt;&lt;br/&gt;　　&lt;a href=&quot;http://www.stdtime.gov.tw/chinese/bulletin/NTP%20promo.txt&quot;&gt;NTP 伺服器&lt;/a&gt;&lt;br/&gt; &lt;a href=&quot;https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=330587#10&quot;&gt;openntpd: &quot;adjtime failed: Invalid argument&quot;&lt;/a&gt;&lt;/p&gt;
 	</description>
     </item>
     <item>

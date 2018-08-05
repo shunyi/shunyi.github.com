@@ -54,6 +54,93 @@
 	<div class="page-header">
 		<h1>Blog</h1>
 	</div>
+  			<a href="blog/2018/spring-resource-versioning.html"><h1>Spring MVC 加入 HTTP Cache 機制</h1></a>
+  			<p>15 七月 2018</p>
+  			<p><ol>
+  <li>
+    <p>先建立 Java Config 檔案</p>
+    <!--prettify-->
+    <pre><code>@Configuration
+@EnableWebMvc
+public class MvcConfig extends WebMvcConfigurerAdapter {
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+       registry.addResourceHandler(&quot;/resources/**&quot;)
+          .addResourceLocations(&quot;/resources/&quot;)
+          .setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS))
+          .resourceChain(false)
+          .addResolver(new VersionResourceResolver().addContentVersionStrategy(&quot;/**&quot;));
+    }
+
+    ...
+}
+</code></pre>
+    <p>1.1 若使用了 <code>@EnableWebMvc</code>，就不能在 XML 中使用 <code>&lt;annotation-driven /&gt;</code> (<a href="https://stackoverflow.com/a/28150788">參考</a>)<br/>1.2 WebMvcConfigurerAdapter 只能在 <code>@EnableWebMvc</code> 中使用 (參考同上)</p>
+  </li>
+  <li>
+    <p>在 JSP 中改用以下方式來指定靜態檔案路徑</p>
+    <!--prettify-->
+    <pre><code>&lt;script type=&quot;text/javascript&quot; src=&quot;&lt;c:url value=&quot;/resources/js/cache.js&quot; /&gt;&quot;&gt;&lt;/script&gt;
+</code></pre>
+    <p>2.1 其中 <code>/resources/js/cache.js</code> <strong>必須以 <code>/</code> 作為開頭</strong>，才能正確轉換成 <code>/${contextPath}/resources/js/cache-d347bec25f38177ca4e18844b11f1d42.js</code><br/>2.2 推測這麼做的可能原因是同一個 .jsp 檔案有可能被不同的 @RequestMapping 所使用，因此 requestURI() 也會有所不同，故需以 <code>/</code> 確定其參考到的靜態檔案的路徑是正確的</p>
+  </li>
+  <li>
+    <p>在 web.xml 加入以下設定：</p>
+    <!--prettify-->
+    <pre><code>&lt;filter&gt;
+    &lt;filter-name&gt;resourceUrlEncodingFilter&lt;/filter-name&gt;
+    &lt;filter-class&gt;
+       org.springframework.web.servlet.resource.ResourceUrlEncodingFilter
+    &lt;/filter-class&gt;
+&lt;/filter&gt;
+&lt;filter-mapping&gt;
+    &lt;filter-name&gt;resourceUrlEncodingFilter&lt;/filter-name&gt;
+    &lt;servlet-name&gt;appServlet&lt;/servlet-name&gt;
+&lt;/filter-mapping&gt;
+</code></pre>
+    <p>3.1 其中 <code>&lt;servlet-name&gt;</code> 應設為 org.springframework.web.servlet.DispatcherServlet 所使用的 servlet name (<a href="https://stackoverflow.com/a/11662070">參考</a>)</p>
+  </li>
+  <li>
+    <p>在 Spring 的 xml 設定檔中加入：</p>
+    <!--prettify-->
+    <pre><code>&lt;beans xmlns=&quot;http://www.springframework.org/schema/beans&quot; ... &gt;
+    ...
+    &lt;context:component-scan base-package=&quot;idv.shunyi.config&quot; /&gt; &lt;!-- MvcConfig.java 所在的 package --&gt;
+    ...
+&lt;/beans&gt;
+</code></pre>
+  </li>
+  <li>
+    <p>若要在 CSS 中 import 其他 CSS</p>
+    <!-- prettify -->
+    <pre><code>@import &quot;cache.css&quot;;
+</code></pre>
+    <p>5.1 則需改寫 addResourceHandler()</p>
+    <!-- prettify -->
+    <pre><code>@Override
+public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    ...
+
+    registry.addResourceHandler(&quot;/resources/css/**&quot;)
+           .addResourceLocations(&quot;/resources/css/&quot;)
+           .setCacheControl(CacheControl.maxAge(365, TimeUnit.DAYS))
+           .resourceChain(false)
+           .addResolver(new VersionResourceResolver().addContentVersionStrategy(&quot;/**&quot;))
+           .addTransformer(new CssLinkResourceTransformer());
+}
+</code></pre>
+  </li>
+</ol>
+<h3>參考資料</h3>
+<ul>
+  <li><a href="https://github.com/arpitaggarwal/spring-resource-versioning">arpitaggarwal/spring-resource-versioning (GitHub)</a></li>
+  <li><a href="http://www.baeldung.com/cachable-static-assets-with-spring-mvc">Cachable Static Assets with Spring MVC</a></li>
+  <li><a href="https://kaif.io/z/programming/debates/IipLjnAD5F">循序漸進理解 HTTP Cache 機制 | TechBridge 技術共筆部落格</a></li>
+  <li><a href="https://stackoverflow.com/a/28150788">Can not understand difference in behavior between : @EnableWebMvc and <annotation-driven /></a></li>
+  <li><a href="https://stackoverflow.com/a/11662070"><servlet-name> inside <filter-mapping> of web.xml, what does this mean?</a></li>
+  <li><a href="https://blog.coding.net/blog/spring-static-resource-process">深入 Spring 系列之静态资源处理</a></li>
+</ul></p>
   			<a href="blog/2018/pitest.html"><h1>變異測試工具 - Pitest Quick Start</h1></a>
   			<p>17 六月 2018</p>
   			<p><ol>
@@ -317,8 +404,10 @@ servers watch.stdtime.gov.tw
   <p>若要手動執行 openntpd，可使用以下指令</p>
   <pre><code>ntpd -dsv
 </code></pre></li>
+  <li>
+  <p>若是出現錯誤訊息：<code>debian ntpd[29354]: adjtime failed: Invalid argument</code>，則要在 /etc/default/openntpd 中加入 DAEMON_OPTS="-s"</p></li>
 </ol>
-<p>參考資料<br/>　　<a href="http://www.stdtime.gov.tw/Time/ntp/resource.htm">NTP 的網路資源</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%E6%96%B0%E5%A2%9E%E9%A0%BB%E5%AF%AC.txt">NTP 新增頻寬</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%20promo.txt">NTP 伺服器</a></p></p>
+<p>參考資料<br/>　　<a href="http://www.stdtime.gov.tw/Time/ntp/resource.htm">NTP 的網路資源</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%E6%96%B0%E5%A2%9E%E9%A0%BB%E5%AF%AC.txt">NTP 新增頻寬</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%20promo.txt">NTP 伺服器</a><br/> <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=330587#10">openntpd: "adjtime failed: Invalid argument"</a></p></p>
   			<a href="blog/2017/tika-basic-sample.html"><h1>Apache Tika 範例</h1></a>
   			<p>19 十一月 2017</p>
   			<p><p>可利用 Tika 來取得檔案的內文、<a href="https://zh.wikipedia.org/wiki/%E5%85%83%E6%95%B0%E6%8D%AE">Metadata</a> 以及 <a href="https://zh.wikipedia.org/wiki/%E4%BA%92%E8%81%94%E7%BD%91%E5%AA%92%E4%BD%93%E7%B1%BB%E5%9E%8B">MIME type</a></p>

@@ -100,8 +100,10 @@ servers watch.stdtime.gov.tw
   <p>若要手動執行 openntpd，可使用以下指令</p>
   <pre><code>ntpd -dsv
 </code></pre></li>
+  <li>
+  <p>若是出現錯誤訊息：<code>debian ntpd[29354]: adjtime failed: Invalid argument</code>，則要在 /etc/default/openntpd 中加入 DAEMON_OPTS="-s"</p></li>
 </ol>
-<p>參考資料<br/>　　<a href="http://www.stdtime.gov.tw/Time/ntp/resource.htm">NTP 的網路資源</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%E6%96%B0%E5%A2%9E%E9%A0%BB%E5%AF%AC.txt">NTP 新增頻寬</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%20promo.txt">NTP 伺服器</a></p></p>
+<p>參考資料<br/>　　<a href="http://www.stdtime.gov.tw/Time/ntp/resource.htm">NTP 的網路資源</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%E6%96%B0%E5%A2%9E%E9%A0%BB%E5%AF%AC.txt">NTP 新增頻寬</a><br/>　　<a href="http://www.stdtime.gov.tw/chinese/bulletin/NTP%20promo.txt">NTP 伺服器</a><br/> <a href="https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=330587#10">openntpd: "adjtime failed: Invalid argument"</a></p></p>
 
 	<hr />
 	
