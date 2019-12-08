@@ -62,8 +62,13 @@
 <p>但是照網頁上的指示，更新 /etc/apt/sources.list 並執行 apt-get 後，卻顯示錯誤訊息：</p>
 <p>　　Package firefox-esr is not available, but is referred to by another package.<br/>　　This may mean that the package is missing, has been obsoleted, or<br/>　　is only available from another source</p>
 <p>　　E: Package 'firefox-esr' has no installation candidate</p>
-<p>寫信去 <a href="mailto:&#x70;&#x6b;g&#x2d;&#x6d;&#x6f;&#122;i&#x6c;&#x6c;&#97;&#x2d;&#x6d;&#97;&#105;&#x6e;&#x74;&#97;&#105;&#110;e&#x72;&#115;&#x40;l&#x69;&#x73;&#116;&#115;&#46;&#97;&#x6c;&#105;&#x6f;&#116;&#x68;&#46;d&#x65;&#98;&#105;a&#x6e;&#x2e;&#x6f;&#114;&#103;">&#x70;&#x6b;g&#x2d;&#x6d;&#x6f;&#122;i&#x6c;&#x6c;&#97;&#x2d;&#x6d;&#97;&#105;&#x6e;&#x74;&#97;&#105;&#110;e&#x72;&#115;&#x40;l&#x69;&#x73;&#116;&#115;&#46;&#97;&#x6c;&#105;&#x6f;&#116;&#x68;&#46;d&#x65;&#98;&#105;a&#x6e;&#x2e;&#x6f;&#114;&#103;</a> 問也沒有回應 ...</p>
-<p>所以 Firefox ESR 應該已經不支援 Jessie 了...</p></p>
+<p>寫信去 <a href="mailto:&#x70;k&#103;&#45;m&#x6f;&#x7a;&#x69;&#108;&#108;a&#45;&#109;&#x61;i&#110;&#116;&#97;&#x69;&#110;e&#114;s@l&#105;&#x73;&#x74;&#x73;.&#x61;li&#111;&#116;&#104;&#46;d&#101;&#98;&#105;&#x61;&#x6e;&#x2e;&#x6f;&#114;&#103;">&#x70;k&#103;&#45;m&#x6f;&#x7a;&#x69;&#108;&#108;a&#45;&#109;&#x61;i&#110;&#116;&#97;&#x69;&#110;e&#114;s@l&#105;&#x73;&#x74;&#x73;.&#x61;li&#111;&#116;&#104;&#46;d&#101;&#98;&#105;&#x61;&#x6e;&#x2e;&#x6f;&#114;&#103;</a> 問也沒有回應 ...</p>
+<p>所以 Firefox ESR 應該已經不支援 Jessie 了...</p>
+<hr/>
+<p><em>2019/10/13 更新</em></p>
+<p>後來發現使用以下指令便可以在 Debian Jessie 下使用 Firefox ESR (v60.7.1esr)，但要注意升級後有些擴充套件可能會被停用 (不再支援)</p>
+<pre><code>apt-get -t jessie install firefox-esr
+</code></pre></p>
 
 	<hr />
 	
